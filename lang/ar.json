@@ -3,5 +3,11 @@
     "Sport Federations": "الاتحادات الرياضية",
     "Description": "الوصف",
     "Info": "معلومات",
-    "Name": "الاسم"
+    "Name": "الاسم",
+    "Player": "اللاعب",
+    "Players": "اللاعبين",
+    "Reports": "البلاغات",
+    "Report": "بلاغ",
+    "Request": "طلب",
+    "Requests": "الطلبات"
 }

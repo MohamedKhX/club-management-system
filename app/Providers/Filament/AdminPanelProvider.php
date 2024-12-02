@@ -50,7 +50,7 @@ class AdminPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
             ])
             ->colors([
-                'primary' => Color::Teal,
+                'primary' => Color::Violet,
                 'gray' => Color::Gray,
                 'green' => Color::Green,
                 'red' => Color::Red,

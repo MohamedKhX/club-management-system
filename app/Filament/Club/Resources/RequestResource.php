@@ -2,29 +2,31 @@
 
 namespace App\Filament\Club\Resources;
 
-use App\Filament\Club\Resources\PlayerResource\Pages;
-use App\Filament\Club\Resources\PlayerResource\RelationManagers;
-use App\Models\Player;
+use App\Filament\Club\Resources\RequestResource\Pages;
+use App\Filament\Club\Resources\RequestResource\RelationManagers;
+use App\Models\Request;
 use App\Traits\HasTranslatedLabels;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class PlayerResource extends Resource
+class RequestResource extends Resource
 {
     use HasTranslatedLabels;
 
-    protected static ?string $model = Player::class;
+    protected static ?string $model = Request::class;
 
-    protected static ?string $navigationIcon = 'iconpark-sport';
+    protected static ?string $navigationIcon = 'tabler-git-pull-request';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-
+                //
             ]);
     }
 
@@ -32,7 +34,7 @@ class PlayerResource extends Resource
     {
         return $table
             ->columns([
-
+                //
             ])
             ->filters([
                 //
@@ -57,9 +59,9 @@ class PlayerResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListPlayers::route('/'),
-            'create' => Pages\CreatePlayer::route('/create'),
-            'edit' => Pages\EditPlayer::route('/{record}/edit'),
+            'index' => Pages\ListRequests::route('/'),
+            'create' => Pages\CreateRequest::route('/create'),
+            'edit' => Pages\EditRequest::route('/{record}/edit'),
         ];
     }
 }

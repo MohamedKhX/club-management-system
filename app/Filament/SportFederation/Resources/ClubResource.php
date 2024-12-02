@@ -1,30 +1,29 @@
 <?php
 
-namespace App\Filament\Club\Resources;
+namespace App\Filament\SportFederation\Resources;
 
-use App\Filament\Club\Resources\PlayerResource\Pages;
-use App\Filament\Club\Resources\PlayerResource\RelationManagers;
-use App\Models\Player;
-use App\Traits\HasTranslatedLabels;
+use App\Filament\SportFederation\Resources\ClubResource\Pages;
+use App\Filament\SportFederation\Resources\ClubResource\RelationManagers;
+use App\Models\Club;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class PlayerResource extends Resource
+class ClubResource extends Resource
 {
-    use HasTranslatedLabels;
+    protected static ?string $model = Club::class;
 
-    protected static ?string $model = Player::class;
-
-    protected static ?string $navigationIcon = 'iconpark-sport';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-
+                //
             ]);
     }
 
@@ -32,7 +31,7 @@ class PlayerResource extends Resource
     {
         return $table
             ->columns([
-
+                //
             ])
             ->filters([
                 //
@@ -57,9 +56,9 @@ class PlayerResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListPlayers::route('/'),
-            'create' => Pages\CreatePlayer::route('/create'),
-            'edit' => Pages\EditPlayer::route('/{record}/edit'),
+            'index' => Pages\ListClubs::route('/'),
+            'create' => Pages\CreateClub::route('/create'),
+            'edit' => Pages\EditClub::route('/{record}/edit'),
         ];
     }
 }

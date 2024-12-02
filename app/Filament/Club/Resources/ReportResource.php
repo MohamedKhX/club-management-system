@@ -5,6 +5,7 @@ namespace App\Filament\Club\Resources;
 use App\Filament\Club\Resources\ReportResource\Pages;
 use App\Filament\Club\Resources\ReportResource\RelationManagers;
 use App\Models\Report;
+use App\Traits\HasTranslatedLabels;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -15,9 +16,11 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ReportResource extends Resource
 {
+    use HasTranslatedLabels;
+
     protected static ?string $model = Report::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'tabler-message-report';
 
     public static function form(Form $form): Form
     {
