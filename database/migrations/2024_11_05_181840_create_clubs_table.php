@@ -14,8 +14,11 @@ return new class extends Migration
         Schema::create('clubs', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('location')->nullable();
-            $table->integer('founded_year')->nullable();
+            $table->text('description')->nullable();
+            $table->string('location')->nullable(); // Club's location
+            $table->date('founded_date')->nullable();
+
+            $table->foreignId('sport_federation_id')->nullable()->constrained()->onDelete('set null'); // Associated sport federation
             $table->timestamps();
         });
     }

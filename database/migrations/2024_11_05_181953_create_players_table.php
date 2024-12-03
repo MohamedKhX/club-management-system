@@ -22,6 +22,7 @@ return new class extends Migration
                 ->default(PlayerStateEnum::Active);  // Player status
 
             $table->foreignId('club_id')->constrained('clubs');
+            $table->foreignId('sport_federation_id')->constrained('sport_federations');
             $table->timestamps();
         });
     }

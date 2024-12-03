@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Admin\Resources;
 
 use App\Filament\Resources\SportFederationResource\Pages;
 use App\Filament\Resources\SportFederationResource\RelationManagers;
@@ -69,9 +69,9 @@ class SportFederationResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListSportFederations::route('/'),
-            'create' => Pages\CreateSportFederation::route('/create'),
-            'edit' => Pages\EditSportFederation::route('/{record}/edit'),
+            'index' => \App\Filament\Admin\Resources\SportFederationResource\Pages\ListSportFederations::route('/'),
+            'create' => \App\Filament\Admin\Resources\SportFederationResource\Pages\CreateSportFederation::route('/create'),
+            'edit' => \App\Filament\Admin\Resources\SportFederationResource\Pages\EditSportFederation::route('/{record}/edit'),
         ];
     }
 }

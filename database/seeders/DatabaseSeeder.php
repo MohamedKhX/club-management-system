@@ -18,5 +18,10 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@admin.com',
             'type'  => UserTypeEnum::Admin,
         ]);
+
+        $this->call(SportFederationSeeder::class);
+        $this->call(ClubSeeder::class);
+        $this->call(PlayerSeeder::class);
+        $this->call(ReportSeeder::class);
     }
 }

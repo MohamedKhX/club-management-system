@@ -25,9 +25,19 @@ class SportFederationPanelProvider extends PanelProvider
         return $panel
             ->id('sportFederation')
             ->font('Rubik')
+            ->login()
             ->path('sportFederation')
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Cyan,
+                'gray' => Color::Gray,
+                'green' => Color::Green,
+                'red' => Color::Red,
+                'yellow' => Color::Yellow,
+                'blue' => Color::Blue,
+                'orange' => Color::Orange,
+                'darkgreen' => '#28a745',
+                'purple' => Color::Purple,
+                'teal' => Color::Teal,
             ])
             ->discoverResources(in: app_path('Filament/SportFederation/Resources'), for: 'App\\Filament\\SportFederation\\Resources')
             ->discoverPages(in: app_path('Filament/SportFederation/Pages'), for: 'App\\Filament\\SportFederation\\Pages')

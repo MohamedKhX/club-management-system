@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\SportFederationResource\Pages;
+namespace App\Filament\Admin\Resources\SportFederationResource\Pages;
 
-use App\Filament\Resources\SportFederationResource;
+use App\Filament\Admin\Resources\SportFederationResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 

@@ -19,8 +19,6 @@ return new class extends Migration
 
             $table->foreignId('club_id')->nullable()->constrained()->onDelete('cascade');
             $table->foreignId('sport_federation_id')->nullable()->constrained()->onDelete('cascade');
-            $table->foreignId('player_id')->nullable()->constrained()->onDelete('cascade');
-            $table->foreignId('reported_by')->nullable()->constrained('users');
             $table->timestamps();
         });
     }
