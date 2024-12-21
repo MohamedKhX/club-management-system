@@ -15,6 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
+            $table->string('phone')->nullable(); // Contact phone number
+            $table->string('email')->nullable(); // Contact email address
+            $table->string('website')->nullable(); // Federation website URL
+            $table->string('facebook_page')->nullable();
+            $table->string('twitter_page')->nullable();
             $table->timestamps();
         });
     }
