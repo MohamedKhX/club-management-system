@@ -18,6 +18,8 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->enum('type', \App\Enums\UserTypeEnum::values());
+            $table->foreignId('sport_federation_id')->nullable()->constrained();
+            $table->foreignId('club_id')->nullable()->constrained();
             $table->rememberToken();
             $table->timestamps();
         });

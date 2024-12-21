@@ -2,21 +2,19 @@
 
 namespace App\Filament\Admin\Resources;
 
-use App\Filament\Resources\SportFederationResource\Pages;
-use App\Filament\Resources\SportFederationResource\RelationManagers;
+use App\Filament\Admin\Resources\SportFederationResource\RelationManagers\UsersRelationManager;
 use App\Models\SportFederation;
 use App\Traits\HasTranslatedLabels;
 use Filament\Forms;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
-use Filament\Resources\Pages\Concerns\HasRelationManagers;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class SportFederationResource extends Resource
 {
@@ -45,6 +43,40 @@ class SportFederationResource extends Resource
                             ->translateLabel()
                             ->required()
                             ->maxLength(100),
+
+                        TextInput::make('phone')
+                            ->label('Phone Number')
+                            ->translateLabel()
+                            ->required()
+                            ->numeric()
+                            ->minLength(10)
+                            ->maxLength(10),
+
+
+                        TextInput::make('email')
+                            ->label('Email')
+                            ->translateLabel()
+                            ->required()
+                            ->email(),
+
+                        TextInput::make('website')
+                            ->label('Website')
+                            ->translateLabel(),
+
+                        TextInput::make('facebook_page')
+                            ->label('Facebook Page')
+                            ->translateLabel()
+                            ->nullable(),
+
+                        TextInput::make('twitter_page')
+                            ->label('Twitter Page')
+                            ->translateLabel()
+                            ->nullable(),
+
+                        SpatieMediaLibraryFileUpload::make('logo')
+                            ->label('Logo')
+                            ->translateLabel()
+                            ->required(),
                     ])
                     ->columns(1),
                 ]);
@@ -54,16 +86,36 @@ class SportFederationResource extends Resource
     {
         return $table
             ->columns([
+                SpatieMediaLibraryImageColumn::make('logo')
+                    ->label("Logo")
+                    ->translateLabel()
+                    ->circular(),
+
                 TextColumn::make('name')
                     ->label('Name')
                     ->translateLabel()
                     ->description(fn($record) => $record->description)
                     ->searchable()
                     ->sortable(),
+
+                TextColumn::make('phone')
+                    ->label('Phone Number')
+                    ->translateLabel(),
+
+                TextColumn::make('email')
+                    ->label('Email')
+                    ->translateLabel(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
             ]);
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            UsersRelationManager::make()
+        ];
     }
 
     public static function getPages(): array

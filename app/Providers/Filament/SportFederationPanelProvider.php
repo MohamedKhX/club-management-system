@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\SportFederation\Widgets\StatsOverviewWidget;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -46,8 +47,6 @@ class SportFederationPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/SportFederation/Widgets'), for: 'App\\Filament\\SportFederation\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,

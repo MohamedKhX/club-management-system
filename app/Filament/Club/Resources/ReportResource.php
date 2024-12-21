@@ -26,7 +26,7 @@ class ReportResource extends Resource
     {
         return $form
             ->schema([
-                //
+
             ]);
     }
 

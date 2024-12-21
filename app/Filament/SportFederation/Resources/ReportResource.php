@@ -6,6 +6,7 @@ use App\Filament\SportFederation\Resources\ReportResource\Pages;
 use App\Filament\SportFederation\Resources\ReportResource\RelationManagers;
 use App\Models\Report;
 use App\Traits\HasTranslatedLabels;
+use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -63,5 +64,10 @@ class ReportResource extends Resource
             'create' => Pages\CreateReport::route('/create'),
             'edit' => Pages\EditReport::route('/{record}/edit'),
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->where('sport_federation_id', Filament::auth()->user()->sport_federation_id);
     }
 }

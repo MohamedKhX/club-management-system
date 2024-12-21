@@ -6,17 +6,20 @@ use App\Filament\SportFederation\Resources\ClubResource\Pages;
 use App\Filament\SportFederation\Resources\ClubResource\RelationManagers;
 use App\Models\Club;
 use App\Traits\HasTranslatedLabels;
+use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\BooleanColumn;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -50,7 +53,7 @@ class ClubResource extends Resource
                                     ->placeholder(__('Enter the club location')), // Translation for placeholder
                             ]),
 
-                        DatePicker::make('founded_year')
+                        DatePicker::make('founded_date')
                             ->label(__('Founded Year')) // Translate label
                             ->placeholder(__('Select the year the club was founded')) // Translation for placeholder
                             ->displayFormat('Y'),
@@ -60,6 +63,12 @@ class ClubResource extends Resource
                             ->rows(4)
                             ->placeholder(__('Enter a brief description about the club')), // Translation for placeholder
 
+
+                        SpatieMediaLibraryFileUpload::make('logo')
+                            ->label('Logo')
+                            ->translateLabel()
+                            ->required(),
+
                         Hidden::make('sport_federation_id')
                             ->default(auth()->user()->sport_federation_id), // Hidden field for sport federation ID
                     ])
@@ -68,10 +77,28 @@ class ClubResource extends Resource
             ]);
     }
 
+
+    public static function getRelations(): array
+    {
+        return [
+            RelationManagers\UsersRelationManager::make()
+        ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->where('sport_federation_id', Filament::auth()->user()->sport_federation_id);
+    }
+
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
+                SpatieMediaLibraryImageColumn::make('logo')
+                    ->label("Logo")
+                    ->translateLabel()
+                    ->circular(),
+
                 TextColumn::make('name')
                     ->label(__('Club Name'))
                     ->sortable()
@@ -94,12 +121,6 @@ class ClubResource extends Resource
             ]);
     }
 
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
 
     public static function getPages(): array
     {

@@ -13,14 +13,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+
+
+        $this->call(SportFederationSeeder::class);
+        $this->call(ClubSeeder::class);
+
         User::factory()->create([
             'name'  => 'Admin',
             'email' => 'admin@admin.com',
             'type'  => UserTypeEnum::Admin,
+            'sport_federation_id' => 1,
+            'club_id' => 1
         ]);
 
-        $this->call(SportFederationSeeder::class);
-        $this->call(ClubSeeder::class);
         $this->call(PlayerSeeder::class);
         $this->call(ReportSeeder::class);
     }
