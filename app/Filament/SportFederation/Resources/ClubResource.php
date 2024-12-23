@@ -103,6 +103,7 @@ class ClubResource extends Resource
                     ->label(__('Club Name'))
                     ->sortable()
                     ->searchable()
+                    ->description(fn($record) => $record->description)
                     ->limit(50),
 
                 TextColumn::make('location')

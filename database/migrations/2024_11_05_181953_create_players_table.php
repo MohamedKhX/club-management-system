@@ -14,14 +14,14 @@ return new class extends Migration
     {
         Schema::create('players', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name', 100);
             $table->date('date_of_birth');
-            $table->string('position')->nullable();
-            $table->string('nationality')->nullable();
+            $table->string('position', 100)->nullable();
+            $table->string('nationality', 100)->nullable();
             $table->enum('state', PlayerStateEnum::values())
-                ->default(PlayerStateEnum::Active);  // Player status
+                ->default(PlayerStateEnum::Inactive);  // Player status
 
-            $table->foreignId('club_id')->constrained('clubs');
+            $table->foreignId('club_id')->nullable()->constrained('clubs');
             $table->foreignId('sport_federation_id')->constrained('sport_federations');
             $table->timestamps();
         });

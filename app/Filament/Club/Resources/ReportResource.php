@@ -10,6 +10,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -34,18 +35,22 @@ class ReportResource extends Resource
     {
         return $table
             ->columns([
-                //
-            ])
-            ->filters([
-                //
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                TextColumn::make('title')
+                    ->label(__('Title'))
+                    ->sortable()
+                    ->searchable()
+                    ->limit(50),
+
+                TextColumn::make('content')
+                    ->label(__('Content'))
+                    ->limit(100)
+                    ->wrap(),
+
+                TextColumn::make('club.name')
+                    ->label(__('Club'))
+                    ->sortable()
+                    ->searchable()
+                    ->badge(),
             ]);
     }
 
