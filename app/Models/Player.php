@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
@@ -26,10 +27,15 @@ class Player extends Model implements HasMedia
         return $this->belongsTo(Club::class);
     }
 
-    public function contract(): Attribute
+    public function requests(): HasMany
     {
-        return Attribute::get(function () {
-            return $this->getMedia('contract');
-        });
+        return $this->hasMany(Request::class);
     }
+
+    public function contracts(): HasMany
+    {
+        return $this->hasMany(Contract::class);
+    }
+
+
 }

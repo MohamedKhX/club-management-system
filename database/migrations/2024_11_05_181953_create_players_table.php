@@ -21,7 +21,6 @@ return new class extends Migration
             $table->enum('state', PlayerStateEnum::values())
                 ->default(PlayerStateEnum::Inactive);  // Player status
 
-            $table->foreignId('club_id')->nullable()->constrained('clubs');
             $table->foreignId('sport_federation_id')->constrained('sport_federations');
             $table->timestamps();
         });

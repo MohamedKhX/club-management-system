@@ -13,13 +13,13 @@ return [
         PlayerStateEnum::Suspended->value => 'معلق',
     ],
 
-    'request_type_enum' => [
+    'request_state_enum' => [
         RequestStateEnum::Pending->value => 'قيد الانتظار',
         RequestStateEnum::Approved->value => 'موافقة',
         RequestStateEnum::Rejected->value => 'مرفوض',
     ],
 
-    'request_state_enum' => [
+    'request_type_enum' => [
         RequestTypeEnum::PlayerRegistration->value => 'تسجيل لاعب',
         RequestTypeEnum::PlayerPurchase->value => 'شراء لاعب',
         RequestTypeEnum::PlayerLoan->value => 'إعارة لاعب',

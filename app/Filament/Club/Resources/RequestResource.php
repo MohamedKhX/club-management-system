@@ -2,11 +2,17 @@
 
 namespace App\Filament\Club\Resources;
 
+use App\Enums\RequestStateEnum;
+use App\Enums\RequestTypeEnum;
 use App\Filament\Club\Resources\RequestResource\Pages;
 use App\Filament\Club\Resources\RequestResource\RelationManagers;
+use App\Models\Player;
 use App\Models\Request;
 use App\Traits\HasTranslatedLabels;
 use Filament\Forms;
+use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -26,7 +32,33 @@ class RequestResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\Fieldset::make()
+                    ->schema([
+                        Select::make('type')
+                            ->label('Type')
+                            ->translateLabel()
+                            ->options(RequestTypeEnum::getTranslations())
+                            ->required(),
+
+                        Select::make('player_id')
+                            ->label('Player')
+                            ->translateLabel()
+                            ->options(Player::pluck('name', 'id'))
+                            ->searchable()
+                            ->required(),
+
+                        Textarea::make('description')
+                            ->label('Description')
+                            ->translateLabel()
+                            ->rows(4)
+                            ->nullable(),
+
+                        Hidden::make('club_id')
+                            ->default(auth()->user()->club_id),
+
+                        Hidden::make('sport_federation_id')
+                            ->default(auth()->user()->club->sport_federation_id),
+                    ])->columns(1)
             ]);
     }
 

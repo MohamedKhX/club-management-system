@@ -11,6 +11,8 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\BadgeColumn;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -37,26 +39,31 @@ class RequestResource extends Resource
     {
         return $table
             ->columns([
-                //
-            ])
-            ->filters([
-                //
+                TextColumn::make('player.name')
+                    ->label('Player')
+                    ->translateLabel()
+                    ->searchable(),
+
+                TextColumn::make('club.name')
+                    ->label('Club')
+                    ->translateLabel()
+                    ->searchable(),
+
+                TextColumn::make('state')
+                    ->label('State')
+                    ->translateLabel()
+                    ->formatStateUsing(fn($state) => $state->translate())
+                    ->badge(),
+
+                TextColumn::make('type')
+                    ->label('Type')
+                    ->translateLabel()
+                    ->formatStateUsing(fn($state) => $state->translate())
+                    ->badge(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array

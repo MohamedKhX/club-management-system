@@ -77,7 +77,6 @@ class ClubResource extends Resource
             ]);
     }
 
-
     public static function getRelations(): array
     {
         return [

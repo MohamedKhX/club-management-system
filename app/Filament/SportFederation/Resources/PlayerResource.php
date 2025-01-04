@@ -49,12 +49,6 @@ class PlayerResource extends Resource
                     ->sortable()
                     ->searchable(),
 
-                  TextColumn::make('state')
-                    ->label(__('State'))
-                    ->sortable()
-                    ->badge()
-                    ->color(fn (Model $record) => $record->state === PlayerStateEnum::Active ? Color::Green : Color::Red)
-                    ->formatStateUsing(fn($state) => $state->translate()),
 
                 TextColumn::make('date_of_birth')
                     ->label(__('Date of Birth'))
@@ -87,14 +81,14 @@ class PlayerResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
-                Tables\Actions\Action::make('show_contract')
+               /* Tables\Actions\Action::make('show_contract')
                     ->label('Show Contract')
                     ->translateLabel()
                     ->color(Color::Green)
                     ->icon('iconpark-eyes')
-                    ->url(fn (Player $player) => $player->getFirstMediaUrl('contract'), true),
+                    ->url(fn (Player $player) => $player->getFirstMediaUrl('contract'), true),*/
 
-                Tables\Actions\Action::make('change_state')
+           /*     Tables\Actions\Action::make('change_state')
                     ->label('Change State')
                     ->translateLabel()
                     ->color(Color::Amber)
@@ -112,7 +106,7 @@ class PlayerResource extends Resource
                     ->action(function (array $data, Player $player): void {
                         $player->state = $data['state'];
                         $player->save();
-                    }),
+                    }),*/
             ]);
     }
 
@@ -150,11 +144,6 @@ class PlayerResource extends Resource
                             ->maxLength(100)
                             ->required(),
 
-                        SpatieMediaLibraryFileUpload::make('Contract')
-                            ->collection('contract')
-                            ->label('Contract')
-                            ->translateLabel(),
-
                         SpatieMediaLibraryFileUpload::make('avatar')
                             ->collection('avatar')
                             ->label('Player Avatar')
@@ -174,6 +163,13 @@ class PlayerResource extends Resource
             'index' => Pages\ListPlayers::route('/'),
             'create' => Pages\CreatePlayer::route('/create'),
             'edit' => Pages\EditPlayer::route('/{record}/edit'),
+        ];
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            RelationManagers\ContractsRelationManager::make()
         ];
     }
 

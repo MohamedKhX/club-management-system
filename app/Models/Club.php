@@ -25,4 +25,9 @@ class Club extends Model implements HasMedia
     {
         return $this->hasMany(User::class);
     }
+
+    public function requests(): HasMany
+    {
+        return $this->hasMany(Request::class);
+    }
 }

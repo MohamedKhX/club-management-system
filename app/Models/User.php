@@ -6,8 +6,10 @@ namespace App\Models;
 use App\Enums\UserTypeEnum;
 use Cassandra\Type\UserType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use LaravelIdea\Helper\App\Models\_IH_Club_QB;
 
 class User extends Authenticatable
 {
@@ -47,5 +49,15 @@ class User extends Authenticatable
             'password'          => 'hashed',
             'type'              => UserTypeEnum::class,
         ];
+    }
+
+    public function club(): BelongsTo
+    {
+        return $this->belongsTo(Club::class);
+    }
+
+    public function sportFederation(): BelongsTo
+    {
+        return $this->belongsTo(SportFederation::class);
     }
 }
