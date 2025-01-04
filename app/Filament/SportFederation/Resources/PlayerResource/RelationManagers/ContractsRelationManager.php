@@ -3,6 +3,8 @@
 namespace App\Filament\SportFederation\Resources\PlayerResource\RelationManagers;
 
 use App\Models\Club;
+use App\Models\Contract;
+use App\Models\Player;
 use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
@@ -11,6 +13,7 @@ use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Support\Colors\Color;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -99,6 +102,13 @@ class ContractsRelationManager extends RelationManager
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
+
+                Tables\Actions\Action::make('show_contract')
+                    ->label('Show Contract')
+                    ->translateLabel()
+                    ->color(Color::Green)
+                    ->icon('iconpark-eyes')
+                    ->url(fn (Contract $contract) => $contract->getFirstMediaUrl('contract'), true)
             ]);
     }
 

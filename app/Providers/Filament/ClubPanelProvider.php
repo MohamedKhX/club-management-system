@@ -17,6 +17,9 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use App\Filament\Club\Widgets\ClubStatsOverview;
+use App\Filament\Club\Widgets\SquadCompositionChart;
+use App\Filament\Club\Widgets\ContractValuesChart;
 
 class ClubPanelProvider extends PanelProvider
 {
@@ -45,8 +48,10 @@ class ClubPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Club/Widgets'), for: 'App\\Filament\\Club\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
+
+                ClubStatsOverview::class,
+                SquadCompositionChart::class,
+                ContractValuesChart::class,
             ])
             ->middleware([
                 EncryptCookies::class,
