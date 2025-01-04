@@ -66,18 +66,19 @@ class RequestResource extends Resource
     {
         return $table
             ->columns([
-                //
-            ])
-            ->filters([
-                //
+                Tables\Columns\TextColumn::make('player.name')
+                    ->label('Type')
+                    ->translateLabel()
+                    ->description(fn($record) => $record->description),
+
+                Tables\Columns\TextColumn::make('type')
+                    ->label('Type')
+                    ->translateLabel()
+                    ->badge()
+                    ->formatStateUsing(fn($state) => $state->translate()),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
             ]);
     }
 

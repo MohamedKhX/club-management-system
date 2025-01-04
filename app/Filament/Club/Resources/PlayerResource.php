@@ -27,14 +27,6 @@ class PlayerResource extends Resource
 
     protected static ?string $navigationIcon = 'iconpark-sport';
 
-    public static function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-
-            ]);
-    }
-
     public static function table(Table $table): Table
     {
         return $table
@@ -69,13 +61,6 @@ class PlayerResource extends Resource
                     ->label(__('Nationality'))
                     ->sortable()
                     ->searchable(),
-
-                TextColumn::make('club.name')
-                    ->label(__('Club'))
-                    ->badge()
-                    ->sortable()
-                    ->searchable()
-                    ->default('لا يتبع نادي'),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('club_id')

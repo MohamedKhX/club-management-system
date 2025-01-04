@@ -6,6 +6,7 @@ use App\Models\Club;
 use App\Models\Player;
 use App\Models\Report;
 use App\Models\Request;
+use App\Models\SportFederation;
 use App\Models\User;
 use Filament\Facades\Filament;
 use Filament\Widgets\Concerns\InteractsWithPageFilters;
@@ -21,16 +22,17 @@ class StatsOverviewWidget extends BaseWidget
     protected function getStats(): array
     {
         //cleanup the code
+        $totalSportFederations = SportFederation::count();
         $totalClubs        = Club::where('sport_federation_id', Filament::auth()->user()->sport_federation_id)->count();
         $totalPlayers      = Player::where('sport_federation_id', Filament::auth()->user()->sport_federation_id)->count();
         $totalReports      = Report::where('sport_federation_id', Filament::auth()->user()->sport_federation_id)->count();
         $totalRequests     = Request::where('sport_federation_id', Filament::auth()->user()->sport_federation_id)->count();
         $totalUsers        = User::where('sport_federation_id', Filament::auth()->user()->sport_federation_id)->count();
 
-        return [/*
+        return [
             Stat::make('عدد الاتحادات الرياضي الكلي', $totalSportFederations)
                 ->chart([7, 2, 10, 3, 15, 4, 17])
-                ->color('success'),*/
+                ->color('success'),
 
             Stat::make('عدد الأندية التابعة للاتحاد الرياضي', $totalClubs)
                 ->chart([5, 8, 13, 5, 20, 6, 18])

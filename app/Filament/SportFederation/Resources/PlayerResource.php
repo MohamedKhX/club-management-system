@@ -64,12 +64,6 @@ class PlayerResource extends Resource
                     ->sortable()
                     ->searchable(),
 
-                TextColumn::make('club.name')
-                    ->label(__('Club'))
-                    ->badge()
-                    ->sortable()
-                    ->searchable()
-                    ->default('لا يتبع نادي'),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('club_id')
