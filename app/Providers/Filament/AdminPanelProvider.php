@@ -9,6 +9,7 @@ use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
+use Filament\View\PanelsRenderHook;
 use Filament\Widgets;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -25,6 +26,9 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->id('admin')
+            ->renderHook(PanelsRenderHook::AUTH_LOGIN_FORM_BEFORE, function () {
+                return '<div class="text-center font-bold text-purple-600 text-sm">مدير النظام</div>';
+            })
             ->font('Rubik')
             ->path('admin')
             ->login()

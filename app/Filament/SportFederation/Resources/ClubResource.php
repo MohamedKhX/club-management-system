@@ -53,6 +53,35 @@ class ClubResource extends Resource
                                     ->placeholder(__('Enter the club location')), // Translation for placeholder
                             ]),
 
+                        TextInput::make('phone')
+                            ->label('Phone Number')
+                            ->translateLabel()
+                            ->required()
+                            ->numeric()
+                            ->minLength(10)
+                            ->maxLength(10),
+
+
+                        TextInput::make('email')
+                            ->label('Email')
+                            ->translateLabel()
+                            ->required()
+                            ->email(),
+
+                        TextInput::make('website')
+                            ->label('Website')
+                            ->translateLabel(),
+
+                        TextInput::make('facebook_page')
+                            ->label('Facebook Page')
+                            ->translateLabel()
+                            ->nullable(),
+
+                        TextInput::make('twitter_page')
+                            ->label('Twitter Page')
+                            ->translateLabel()
+                            ->nullable(),
+
                         DatePicker::make('founded_date')
                             ->label(__('Founded Year')) // Translate label
                             ->placeholder(__('Select the year the club was founded')) // Translation for placeholder

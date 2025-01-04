@@ -13,6 +13,7 @@ use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
+use Filament\View\PanelsRenderHook;
 use Filament\Widgets;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -30,6 +31,9 @@ class SportFederationPanelProvider extends PanelProvider
             ->id('sportFederation')
             ->font('Rubik')
             ->login()
+            ->renderHook(PanelsRenderHook::AUTH_LOGIN_FORM_BEFORE, function () {
+                return '<div class="text-center font-bold text-purple-600 text-sm">الاتحاد الرياضي</div>';
+            })
             ->path('sportFederation')
             ->colors([
                 'primary' => Color::Cyan,

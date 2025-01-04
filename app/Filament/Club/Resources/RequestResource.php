@@ -12,6 +12,7 @@ use App\Traits\HasTranslatedLabels;
 use Filament\Forms;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -52,6 +53,11 @@ class RequestResource extends Resource
                             ->translateLabel()
                             ->rows(4)
                             ->nullable(),
+
+                        SpatieMediaLibraryFileUpload::make('Contract')
+                            ->collection('contract')
+                            ->label('Contract')
+                            ->translateLabel(),
 
                         Hidden::make('club_id')
                             ->default(auth()->user()->club_id),

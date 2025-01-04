@@ -56,7 +56,7 @@ class ContractsRelationManager extends RelationManager
                             ->label('Amount')
                             ->translateLabel()
                             ->numeric()
-                            ->required(),
+                            ->nullable(),
 
                         SpatieMediaLibraryFileUpload::make('Contract')
                             ->collection('contract')

@@ -6,9 +6,13 @@ use App\Enums\RequestStateEnum;
 use App\Enums\RequestTypeEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Request extends Model
+class Request extends Model implements HasMedia
 {
+    use InteractsWithMedia;
+
     protected $guarded = [];
 
     protected $casts = [
