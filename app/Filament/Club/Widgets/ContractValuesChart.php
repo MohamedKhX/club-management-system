@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class ContractValuesChart extends ChartWidget
 {
-    protected static ?string $heading = 'Contract Values Over Time';
+    protected static ?string $heading = 'قيم العقد مع مرور الوقت';
     protected static ?int $sort = 3;
 
     protected function getData(): array
@@ -82,4 +82,4 @@ class ContractValuesChart extends ChartWidget
             ],
         ];
     }
-} 
+}

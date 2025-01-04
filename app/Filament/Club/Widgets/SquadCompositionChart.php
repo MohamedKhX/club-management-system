@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class SquadCompositionChart extends ChartWidget
 {
-    protected static ?string $heading = 'Squad Composition';
+    protected static ?string $heading = 'تكوين الفرقة';
     protected static ?int $sort = 2;
     protected static ?string $maxHeight = '300px';
 
@@ -47,4 +47,4 @@ class SquadCompositionChart extends ChartWidget
     {
         return 'pie';
     }
-} 
+}

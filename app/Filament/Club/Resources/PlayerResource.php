@@ -5,11 +5,17 @@ namespace App\Filament\Club\Resources;
 use App\Enums\PlayerStateEnum;
 use App\Filament\Club\Resources\PlayerResource\Pages;
 use App\Filament\Club\Resources\PlayerResource\RelationManagers;
+use App\Filament\SportFederation\Resources\PlayerResource\RelationManagers\ContractsRelationManager;
 use App\Models\Club;
 use App\Models\Player;
 use App\Traits\HasTranslatedLabels;
+use Filament\Facades\Filament;
 use Filament\Forms;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Support\Colors\Color;
@@ -27,6 +33,54 @@ class PlayerResource extends Resource
 
     protected static ?string $navigationIcon = 'iconpark-sport';
 
+
+    public static function form(Form $form): Form
+    {
+        return $form
+            ->schema([
+                Fieldset::make()
+                    ->label("Info")
+                    ->translateLabel()
+                    ->schema([
+                        TextInput::make('name')
+                            ->label('Name')
+                            ->translateLabel()
+                            ->minLength(3)
+                            ->maxLength(100)
+                            ->required(),
+
+                        DatePicker::make('date_of_birth')
+                            ->label('Date Of Birth')
+                            ->translateLabel()
+                            ->required(),
+
+                        TextInput::make('position')
+                            ->label('Position')
+                            ->translateLabel()
+                            ->minLength(3)
+                            ->maxLength(100)
+                            ->nullable(),
+
+                        TextInput::make('nationality')
+                            ->label('Nationality')
+                            ->translateLabel()
+                            ->minLength(3)
+                            ->maxLength(100)
+                            ->required(),
+
+                        SpatieMediaLibraryFileUpload::make('avatar')
+                            ->collection('avatar')
+                            ->label('Player Avatar')
+                            ->translateLabel()
+                            ->image(),
+
+                        Forms\Components\Hidden::make('sport_federation_id')
+                            ->default(Filament::auth()->user()->sport_federation_id),
+                    ])
+                    ->columns(1)
+            ])->columns(1);
+    }
+
     public static function table(Table $table): Table
     {
         return $table
@@ -34,6 +88,7 @@ class PlayerResource extends Resource
                 SpatieMediaLibraryImageColumn::make('avatar')
                     ->label("Player Avatar")
                     ->translateLabel()
+                    ->collection('avatar')
                     ->circular(),
 
                 TextColumn::make('name')
@@ -70,12 +125,7 @@ class PlayerResource extends Resource
                     ),
             ])
             ->actions([
-                Tables\Actions\Action::make('show_contract')
-                    ->label('Show Contract')
-                    ->translateLabel()
-                    ->color(Color::Green)
-                    ->icon('iconpark-eyes')
-                    ->url(fn (Player $player) => $player->getFirstMediaUrl('contract'), true),
+                Tables\Actions\ViewAction::make()
             ]);
     }
 
@@ -97,7 +147,7 @@ class PlayerResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            ContractsRelationManager::make()
         ];
     }
 
@@ -107,6 +157,7 @@ class PlayerResource extends Resource
             'index'  => Pages\ListPlayers::route('/'),
             'create' => Pages\CreatePlayer::route('/create'),
             'edit'   => Pages\EditPlayer::route('/{record}/edit'),
+            'view'   => Pages\ViewPlayer::route('/{record}'),
         ];
     }
 }

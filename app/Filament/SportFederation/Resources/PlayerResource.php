@@ -41,6 +41,7 @@ class PlayerResource extends Resource
             ->columns([
                 SpatieMediaLibraryImageColumn::make('avatar')
                     ->label("Player Avatar")
+                    ->collection('avatar')
                     ->translateLabel()
                     ->circular(),
 

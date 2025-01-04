@@ -7,6 +7,7 @@ use App\Filament\Club\Resources\ReportResource\RelationManagers;
 use App\Models\Report;
 use App\Traits\HasTranslatedLabels;
 use Filament\Forms;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -27,7 +28,24 @@ class ReportResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\Fieldset::make()
+                        ->schema([
+                            Forms\Components\TextInput::make('title')
+                                ->label('Title')
+                                ->translateLabel()
+                                ->required(),
 
+                            Forms\Components\Textarea::make('content')
+                                ->label('Content')
+                                ->translateLabel()
+                                ->required(),
+
+                            Hidden::make('club_id')
+                                ->default(auth()->user()->club_id),
+
+                            Hidden::make('sport_federation_id')
+                                ->default(auth()->user()->club->sport_federation_id),
+                        ])->columns(1)
             ]);
     }
 
@@ -51,6 +69,10 @@ class ReportResource extends Resource
                     ->sortable()
                     ->searchable()
                     ->badge(),
+            ])
+            ->actions([
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make()
             ]);
     }
 
@@ -65,8 +87,8 @@ class ReportResource extends Resource
     {
         return [
             'index' => Pages\ListReports::route('/'),
-            'create' => Pages\CreateReport::route('/create'),
-            'edit' => Pages\EditReport::route('/{record}/edit'),
+           /* 'create' => Pages\CreateReport::route('/create'),
+            'edit' => Pages\EditReport::route('/{record}/edit'),*/
         ];
     }
 }
