@@ -6,6 +6,7 @@ use App\Filament\Club\Resources\ReportResource\Pages;
 use App\Filament\Club\Resources\ReportResource\RelationManagers;
 use App\Models\Report;
 use App\Traits\HasTranslatedLabels;
+use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Form;
@@ -76,19 +77,15 @@ class ReportResource extends Resource
             ]);
     }
 
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-
     public static function getPages(): array
     {
         return [
             'index' => Pages\ListReports::route('/'),
-           /* 'create' => Pages\CreateReport::route('/create'),
-            'edit' => Pages\EditReport::route('/{record}/edit'),*/
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->where('club_id', Filament::auth()->user()->club_id);
     }
 }

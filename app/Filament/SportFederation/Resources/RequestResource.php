@@ -5,8 +5,13 @@ namespace App\Filament\SportFederation\Resources;
 use App\Enums\RequestStateEnum;
 use App\Filament\SportFederation\Resources\RequestResource\Pages;
 use App\Filament\SportFederation\Resources\RequestResource\RelationManagers;
+use App\Models\Club;
 use App\Models\Contract;
 use App\Models\Request;
+use App\Models\SportFederation;
+use App\Notifications\NewRequest;
+use App\Notifications\RequestApproved;
+use App\Notifications\RequestRejected;
 use App\Traits\HasTranslatedLabels;
 use Filament\Facades\Filament;
 use Filament\Forms;
@@ -115,6 +120,24 @@ class RequestResource extends Resource
                     ->action(function (Request $request, $data) {
                         $request->state = $data['state'];
                         $request->save();
+
+                        if($request->state == RequestStateEnum::Approved) {
+                            $notification = new RequestApproved($request);
+
+                            Club::where('id', $request->club_id)->first()->users->each(function ($user) use ($notification) {
+                                $user->notify(
+                                    $notification
+                                );
+                            });
+                        } elseif ($request->state == RequestStateEnum::Rejected) {
+                            $notification = new RequestRejected($request);
+
+                            Club::where('id', $request->club_id)->first()->users->each(function ($user) use ($notification) {
+                                $user->notify(
+                                    $notification
+                                );
+                            });
+                        }
                     })
             ]);
     }

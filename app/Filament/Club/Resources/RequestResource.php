@@ -9,6 +9,7 @@ use App\Filament\Club\Resources\RequestResource\RelationManagers;
 use App\Models\Player;
 use App\Models\Request;
 use App\Traits\HasTranslatedLabels;
+use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
@@ -88,11 +89,9 @@ class RequestResource extends Resource
             ]);
     }
 
-    public static function getRelations(): array
+    public static function getEloquentQuery(): Builder
     {
-        return [
-            //
-        ];
+        return parent::getEloquentQuery()->where('club_id', Filament::auth()->user()->club_id);
     }
 
     public static function getPages(): array

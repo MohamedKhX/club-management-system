@@ -30,6 +30,7 @@ class ClubPanelProvider extends PanelProvider
             ->id('club')
             ->font('Rubik')
             ->path('club')
+            ->login()
             ->renderHook(PanelsRenderHook::AUTH_LOGIN_FORM_BEFORE, function () {
                 return '<div class="text-center font-bold text-purple-600 text-sm">النادي</div>';
             })
@@ -70,6 +71,7 @@ class ClubPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ]);
+            ])
+            ->databaseNotifications();
     }
 }

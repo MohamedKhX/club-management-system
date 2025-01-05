@@ -71,6 +71,7 @@ class SportFederationPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ]);
+            ])
+            ->databaseNotifications();
     }
 }
