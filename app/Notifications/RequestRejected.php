@@ -40,7 +40,7 @@ class RequestRejected extends Notification
     {
         return \Filament\Notifications\Notification::make()
             ->title('تم رفض الطلب')
-            ->success()
+            ->danger()
             ->actions([
                 /*\Filament\Notifications\Actions\Action::make('view')
                     ->label('عرض')
