@@ -20,9 +20,9 @@ services:
             - APP_DEBUG=true
             - APP_TIMEZONE=UTC
 
-            - APP_URL=https://club-management-system.laraplay.fun
-            - ASSET_URL=https://club-management-system.laraplay.fun
-            - VITE_APP_URL=https://club-management-system.laraplay.fun
+            - APP_URL=http://club-management-system.laraplay.fun
+            - ASSET_URL=http://club-management-system.laraplay.fun
+            - VITE_APP_URL=http://club-management-system.laraplay.fun
 
             - APP_LOCALE=ar
             - APP_FALLBACK_LOCALE=en

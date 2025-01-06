@@ -20,22 +20,22 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@admin.com',
             'type'  => UserTypeEnum::Admin,
         ]);
-
+/*
         $sportFederation = SportFederation::factory()->create();
         $club = Club::factory()->create([
             'sport_federation_id' => $sportFederation->id,
-        ]);
+        ]);*/
 
-        $sportUser = User::factory()->create([
+/*        $sportUser = User::factory()->create([
             'type' => UserTypeEnum::SportFederation,
             'sport_federation_id' => $sportFederation->id,
             'email' => 'sport@sport.com'
-        ]);
-
+        ]);*/
+/*
         $clubUser = User::factory()->create([
             'type' => UserTypeEnum::ClubManager,
             'club_id' => $club->id,
             'email' => 'club@club.com'
-        ]);
+        ]);*/
     }
 }
