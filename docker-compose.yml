@@ -17,7 +17,7 @@ services:
             - APP_NAME="Transfer Arena"
             - APP_ENV=production
             - APP_KEY=base64:JAsG6IGdC9kyaETKjiDm2oXtHsvJxKs1X7L2Js3oU8o=
-            - APP_DEBUG=true
+            - APP_DEBUG=false
             - APP_TIMEZONE=UTC
 
             - APP_URL=https://club-management-system.laraplay.fun
