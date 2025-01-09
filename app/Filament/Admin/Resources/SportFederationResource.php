@@ -74,6 +74,7 @@ class SportFederationResource extends Resource
                             ->nullable(),
 
                         SpatieMediaLibraryFileUpload::make('logo')
+                            ->collection('logo')
                             ->label('Logo')
                             ->translateLabel()
                             ->required(),
@@ -89,6 +90,7 @@ class SportFederationResource extends Resource
                 SpatieMediaLibraryImageColumn::make('logo')
                     ->label("Logo")
                     ->translateLabel()
+                    ->collection('logo')
                     ->circular(),
 
                 TextColumn::make('name')

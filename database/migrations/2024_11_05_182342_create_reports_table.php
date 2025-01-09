@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('title', 100);
             $table->text('content');
 
             $table->foreignId('club_id')->nullable()->constrained()->onDelete('cascade');

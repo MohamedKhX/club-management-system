@@ -1,15 +1,15 @@
 <x-app-layout>
     <!-- Promo Section Start -->
-    <section class="promo-sec position-relative jarallax" style="background-image: url('images/promo-sec.jpg');">
+    <section class="promo-sec position-relative jarallax" style="background-image: url('images/main/second.jpg');">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="promo-txt">
-                        <h1 class="text-uppercase text-info mt-3 mb-5 text-center">Team Players</h1>
+                        <h1 class="text-uppercase text-info mt-3 mb-5 text-center">فريق نادي الأهلي</h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                                <li class="breadcrumb-item active" aria-current="page"> Team</li>
+                                <li class="breadcrumb-item"><a href="#">الصفحات</a></li>
+                                <li class="breadcrumb-item active" aria-current="page"> النادي</li>
                             </ol>
                         </nav>
                     </div>

@@ -123,6 +123,7 @@ class ClubResource extends Resource
         return $table
             ->columns([
                 SpatieMediaLibraryImageColumn::make('logo')
+                    ->collection('logo')
                     ->label("Logo")
                     ->translateLabel()
                     ->circular(),

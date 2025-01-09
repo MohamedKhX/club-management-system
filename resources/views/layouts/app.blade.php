@@ -6,17 +6,17 @@
     <title>Transfer Arena</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" href="images/favicon.png">
-    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="{{ asset('images/favicon.png') }}">
+    <link rel="shortcut icon" href="i{{ asset('mages/favicon.ico') }}">
 
     <!-- Font Awesome CSS -->
-    <link rel="stylesheet" href="css/feather.css">
-    <link rel="stylesheet" href="css/nice-select2.css">
-    <link href="css/jarallax.min.css" rel="stylesheet">
-    <link href="css/venobox.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/feather.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/nice-select2.css') }}">
+    <link href="{{ asset('css/jarallax.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/venobox.min.css') }}" rel="stylesheet">
     <!-- Style css -->
-    <link rel="stylesheet" href="css/swiper-bundle.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="{{ asset('css/swiper-bundle.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -77,15 +77,15 @@
 
         <!--Javascript
         ========================================================-->
-        <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="js/bootstrap.bundle.min.js"></script>
-        <script src="js/swiper-bundle.min.js"></script>
-        <script src="js/jarallax.min.js"></script>
-        <script src="js/nice-select2.js"></script>
-        <script src="js/venobox.min.js"></script>
-        <script src="js/purecounter_vanilla.js"></script>
-        <script src="js/isotope.pkgd.min.js"></script>
+        <script data-cfasync="false" src="{{ asset('../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js') }}"></script><script src="js/bootstrap.bundle.min.js"></script>
+        <script src="{{ asset('js/swiper-bundle.min.js') }}"></script>
+        <script src="{{ asset('js/jarallax.min.js') }}"></script>
+        <script src="{{ asset('js/nice-select2.js') }}"></script>
+        <script src="{{ asset('js/venobox.min.js') }}"></script>
+        <script src="{{ asset('js/purecounter_vanilla.js') }}"></script>
+        <script src="{{ asset('js/isotope.pkgd.min.js') }}"></script>
 
-        <script src="js/custom.js"></script>
+        <script src="{{ asset('js/custom.js') }}"></script>
 
         <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"8e979a47bef5e22d","version":"2024.10.5","r":1,"serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"token":"389fa74406c44f21b129709ce8a3ec16","b":1}' crossorigin="anonymous"></script>
     </body>

@@ -1,16 +1,18 @@
 <x-app-layout>
 
     <!-- Promo Section Start -->
-    <section class="promo-sec position-relative jarallax" style="background-image: url('images/promo-sec.jpg');">
+    <section class="promo-sec position-relative jarallax" style="background-image: url('images/main/second.jpg');">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="promo-txt">
-                        <h1 class="text-uppercase text-info mt-3 mb-5 text-center">Team Players</h1>
+                        <h1 class="text-uppercase text-info mt-3 mb-5 text-center">
+                            الأنداية التابعة لاتحاد الكورة
+                        </h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                                <li class="breadcrumb-item active" aria-current="page"> Team</li>
+                                <li class="breadcrumb-item"><a href="#">الصفحات</a></li>
+                                <li class="breadcrumb-item active" aria-current="page"> اتحاد الرياضي</li>
                             </ol>
                         </nav>
                     </div>
@@ -20,102 +22,47 @@
     </section>
     <!-- Promo Section End -->
 
-    <!-- Team Section Start -->
-    <section class="team-page sec-padding">
+    <section class="match-schedule sec-padding">
         <div class="container">
-            <div class="row g-5">
-                <div class="col-lg-4 col-sm-6">
-                    <div class="team-member text-center">
-                        <div class="team-img mb-4">
-                            <img class="img-fluid" src="images/team-m1.png" alt="">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="match-carousel swiper">
+                        <div class="swiper-wrapper">
+                            <!-- Slides -->
+                            <div class="swiper-slide">
+                                <div class="single-match bg-info text-center">
+                                    <div class="d-flex justify-content-around px-4 mb-4">
+                                        <a href="#"><img width="100" src="images/team7.png" alt="team"></a>
+                                    </div>
+                                    <h3 class="text-uppercase mt-1 mb-3"><a href="#">اتحاد الكورة</a></h3>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi, modi!</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="single-match bg-info text-center">
+                                    <div class="d-flex justify-content-around px-4 mb-4">
+                                        <a href="#"><img width="100" src="images/team7.png" alt="team"></a>
+                                    </div>
+                                    <h3 class="text-uppercase mt-1 mb-3"><a href="#">اتحاد الكورة</a></h3>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi, modi!</p>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="single-match bg-info text-center">
+                                    <div class="d-flex justify-content-around px-4 mb-4">
+                                        <a href="#"><img width="100" src="images/team7.png" alt="team"></a>
+                                    </div>
+                                    <h3 class="text-uppercase mt-1 mb-3"><a href="#">اتحاد الكورة</a></h3>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi, modi!</p>
+                                </div>
+                            </div>
                         </div>
-                        <h3 class="text-uppercase mb-0"><a href="single-player.html">Felix Nightshade</a></h3>
-                        <p>Football Coach</p>
-                        <div class="social-share">
-                            <a href="#"><i class="feather-icon icon-twitter"></i></a>
-                            <a href="#"><i class="feather-icon icon-linkedin"></i></a>
-                            <a href="#"><i class="feather-icon icon-instagram"></i></a>
-                            <a href="#"><i class="feather-icon icon-facebook"></i></a>
-                        </div>
+                        <!-- If we need pagination -->
+                        <div class="swiper-pagination text-center"></div>
                     </div>
-                </div><!-- Team Member End -->
-                <div class="col-lg-4 col-sm-6">
-                    <div class="team-member text-center">
-                        <div class="team-img mb-4">
-                            <img class="img-fluid" src="images/team-m5.png" alt="">
-                        </div>
-                        <h3 class="text-uppercase mb-0"><a href="single-player.html">Angelo Nightshade</a></h3>
-                        <p>Football Coach</p>
-                        <div class="social-share">
-                            <a href="#"><i class="feather-icon icon-twitter"></i></a>
-                            <a href="#"><i class="feather-icon icon-linkedin"></i></a>
-                            <a href="#"><i class="feather-icon icon-instagram"></i></a>
-                            <a href="#"><i class="feather-icon icon-facebook"></i></a>
-                        </div>
-                    </div>
-                </div><!-- Team Member End -->
-                <div class="col-lg-4 col-sm-6">
-                    <div class="team-member text-center">
-                        <div class="team-img mb-4">
-                            <img class="img-fluid" src="images/team-m7.png" alt="">
-                        </div>
-                        <h3 class="text-uppercase mb-0"><a href="single-player.html">Josua Blackwood</a></h3>
-                        <p>Football Coach</p>
-                        <div class="social-share">
-                            <a href="#"><i class="feather-icon icon-twitter"></i></a>
-                            <a href="#"><i class="feather-icon icon-linkedin"></i></a>
-                            <a href="#"><i class="feather-icon icon-instagram"></i></a>
-                            <a href="#"><i class="feather-icon icon-facebook"></i></a>
-                        </div>
-                    </div>
-                </div><!-- Team Member End -->
-                <div class="col-lg-4 col-sm-6">
-                    <div class="team-member text-center">
-                        <div class="team-img mb-4">
-                            <img class="img-fluid" src="images/team-m2.png" alt="">
-                        </div>
-                        <h3 class="text-uppercase mb-0"><a href="single-player.html">Xavier Blackwood</a></h3>
-                        <p>Football Coach</p>
-                        <div class="social-share">
-                            <a href="#"><i class="feather-icon icon-twitter"></i></a>
-                            <a href="#"><i class="feather-icon icon-linkedin"></i></a>
-                            <a href="#"><i class="feather-icon icon-instagram"></i></a>
-                            <a href="#"><i class="feather-icon icon-facebook"></i></a>
-                        </div>
-                    </div>
-                </div><!-- Team Member End -->
-                <div class="col-lg-4 col-sm-6">
-                    <div class="team-member text-center">
-                        <div class="team-img mb-4">
-                            <img class="img-fluid" src="images/team-m3.png" alt="">
-                        </div>
-                        <h3 class="text-uppercase mb-0"><a href="single-player.html">Xavier Blackwood</a></h3>
-                        <p>Football Coach</p>
-                        <div class="social-share">
-                            <a href="#"><i class="feather-icon icon-twitter"></i></a>
-                            <a href="#"><i class="feather-icon icon-linkedin"></i></a>
-                            <a href="#"><i class="feather-icon icon-instagram"></i></a>
-                            <a href="#"><i class="feather-icon icon-facebook"></i></a>
-                        </div>
-                    </div>
-                </div><!-- Team Member End -->
-                <div class="col-lg-4 col-sm-6">
-                    <div class="team-member text-center">
-                        <div class="team-img mb-4">
-                            <img class="img-fluid" src="images/team-m8.png" alt="">
-                        </div>
-                        <h3 class="text-uppercase mb-0"><a href="single-player.html">Russel Arnold</a></h3>
-                        <p>Football Coach</p>
-                        <div class="social-share">
-                            <a href="#"><i class="feather-icon icon-twitter"></i></a>
-                            <a href="#"><i class="feather-icon icon-linkedin"></i></a>
-                            <a href="#"><i class="feather-icon icon-instagram"></i></a>
-                            <a href="#"><i class="feather-icon icon-facebook"></i></a>
-                        </div>
-                    </div>
-                </div><!-- Team Member End -->
+                </div>
             </div>
         </div>
     </section>
-    <!-- Team Section End -->
+
 </x-app-layout>

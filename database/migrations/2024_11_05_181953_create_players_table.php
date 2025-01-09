@@ -21,7 +21,7 @@ return new class extends Migration
             $table->enum('state', PlayerStateEnum::values())
                 ->default(PlayerStateEnum::Inactive);  // Player status
 
-            $table->foreignId('sport_federation_id')->constrained('sport_federations');
+            $table->foreignId('sport_federation_id')->constrained('sport_federations')->cascadeOnDelete();
             $table->timestamps();
         });
     }

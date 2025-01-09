@@ -23,23 +23,23 @@
         <div class="container-fluid">
             <div class="row g-3 gallery-wrap">
                 <div class="col">
-                    <a class="my-image-links" data-gall="gallery01" href="images/crick1.jpg">
-                        <img class="img-fluid" src="images/crick1.jpg" alt="Cricket">
+                    <a class="my-image-links" data-gall="gallery01" href="images/main/third.jpg">
+                        <img class="img-fluid" src="images/main/third.jpg" alt="Cricket">
                     </a>
                 </div>
                 <div class="col">
-                    <a class="my-image-links" data-gall="gallery01" href="images/crick2.jpg">
-                        <img class="img-fluid" src="images/crick2.jpg" alt="Cricket">
+                    <a class="my-image-links" data-gall="gallery01" href="images/main/second.jpg">
+                        <img class="img-fluid" src="images/main/second.jpg" alt="Cricket">
                     </a>
                 </div>
                 <div class="col">
-                    <a class="my-image-links" data-gall="gallery01" href="images/crick3.jpg">
-                        <img class="img-fluid" src="images/crick3.jpg" alt="Cricket">
+                    <a class="my-image-links" data-gall="gallery01" href="images/main/first.webp">
+                        <img class="img-fluid" src="images/main/first.webp" alt="Cricket">
                     </a>
                 </div>
                 <div class="col">
-                    <a class="my-image-links" data-gall="gallery01" href="images/crick4.jpg">
-                        <img class="img-fluid" src="images/crick4.jpg" alt="Cricket">
+                    <a class="my-image-links" data-gall="gallery01" href="images/main/forth.jpg">
+                        <img class="img-fluid" src="images/main/forth.jpg" alt="Cricket">
                     </a>
                 </div>
             </div>
@@ -83,96 +83,66 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="match-carousel swiper">
-                        <div class="swiper-wrapper">
-                            <!-- Slides -->
-                            <div class="swiper-slide">
-                                <div class="single-match bg-info text-center">
-                                    <div class="d-flex justify-content-around px-4 mb-4">
-                                        <a href="#"><img width="100" src="images/team7.png" alt="team"></a>
+            <div class="row" style="height: 100%;">
+                <div class="col-lg-12" style="height: 100%;">
+                    <div class="match-carousel swiper" style="height: 100%;">
+                        <div class="swiper-wrapper d-flex flex-grow-1" style="display: flex; height: 100%; align-items: stretch;">
+                            @foreach($federations as $federation)
+                                <div class="swiper-slide" style="display: flex; align-items: stretch; height: 380px; border-radius: 6rem !important;">
+                                    <div class="single-match bg-info text-center" style="display: flex; flex-direction: column; flex-grow: 1; width: 100%;">
+                                        <div class="d-flex justify-content-around px-4 mb-4">
+                                            <a href="{{ route('federation.show', $federation) }}">
+                                                <img width="100" src="{{ $federation->getFirstMediaUrl('logo') }}" alt="{{ $federation->name }}">
+                                            </a>
+                                        </div>
+                                        <h3 class="text-uppercase mt-1 mb-3">
+                                            <a href="{{ route('federation.show', $federation) }}">{{ $federation->name }}</a>
+                                        </h3>
+                                        <p>{{ Str::limit($federation->description, 100) }}</p>
                                     </div>
-                                    <h3 class="text-uppercase mt-1 mb-3"><a href="#">اتحاد الكورة</a></h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi, modi!</p>
                                 </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="single-match bg-info text-center">
-                                    <div class="d-flex justify-content-around px-4 mb-4">
-                                        <a href="#"><img width="100" src="images/team7.png" alt="team"></a>
-                                    </div>
-                                    <h3 class="text-uppercase mt-1 mb-3"><a href="#">اتحاد الكورة</a></h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi, modi!</p>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="single-match bg-info text-center">
-                                    <div class="d-flex justify-content-around px-4 mb-4">
-                                        <a href="#"><img width="100" src="images/team7.png" alt="team"></a>
-                                    </div>
-                                    <h3 class="text-uppercase mt-1 mb-3"><a href="#">اتحاد الكورة</a></h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi, modi!</p>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
-                        <!-- If we need pagination -->
+
                         <div class="swiper-pagination text-center"></div>
                     </div>
                 </div>
             </div>
+
         </div>
     </section>
     <!-- SportFederation Section End -->
 
-    <!-- Gallery Section Start -->
-    <section class="gallery-masionary sec-padding">
+    <!-- Clubs Section Start -->
+    <section class="team-page sec-padding">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6 mx-auto text-center mb-5 pb-4">
-                    <p class="lead text-success">معرض الصور</p>
-                    <h2 class="sec-title line green">بعض اللقطات الحديثة</h2>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="gallery-wrap">
-                        <div class="grid row">
-                            <!-- .gutter-sizer empty element, only used for element sizing -->
-                            <div class="grid-sizer"></div>
-                            <div class="grid-item">
-                                <a class="my-image-links" data-gall="gallery01" href="images/gl1.png">
-                                    <img class="img-fluid" src="images/gl1.png" alt="Gallery">
-                                </a>
-
-                            </div>
-                            <div class="grid-item">
-                                <a class="my-image-links" data-gall="gallery01" href="images/gl2.png">
-                                    <img class="img-fluid" src="images/gl2.png" alt="Gallery">
-                                </a>
-                            </div>
-                            <div class="grid-item height2">
-                                <a class="my-image-links" data-gall="gallery01" href="images/gl3.png">
-                                    <img class="img-fluid" src="images/gl3.png" alt="Gallery">
-                                </a>
-                            </div>
-                            <div class="grid-item">
-                                <a class="my-image-links" data-gall="gallery01" href="images/gallery4.jpg">
-                                    <img class="img-fluid" src="images/gallery4.jpg" alt="Gallery">
-                                </a>
-                            </div>
-                            <div class="grid-item">
-                                <a class="my-image-links" data-gall="gallery01" href="images/gally5.jpg">
-                                    <img class="img-fluid" src="images/gally5.jpg" alt="Gallery">
-                                </a>
-                            </div>
-                        </div>
+                <div class="col-lg-6 mx-auto pb-4 mb-5">
+                    <div class="sec-intro text-center">
+                        <h2 class="sec-title text-black text-info line">الأندية</h2>
                     </div>
                 </div>
             </div>
+            <div class="row g-5 flex justify-content-center">
+                @foreach($clubs as $club)
+                <div class="col-lg-4 col-sm-6">
+                    <div class="team-member text-center">
+                        <div class="team-img mb-4">
+                            <a href="{{ route('club.show', $club) }}">
+                                <img class="img-fluid" src="{{ $club->getFirstMediaUrl('logo') }}" alt="{{ $club->name }}">
+                            </a>
+                        </div>
+                        <h3 class="text-uppercase mb-0">
+                            <a href="{{ route('club.show', $club) }}">{{ $club->name }}</a>
+                        </h3>
+                        <p>{{ Str::limit($club->description, 100) }}</p>
+                    </div>
+                </div>
+                @endforeach
+            </div>
         </div>
     </section>
-    <!-- Gallery Section End -->
+    <!-- Clubs Section End -->
 
     <!-- Text Slide Section Start -->
     <div class="text-slide cricket-text overflow-hidden">

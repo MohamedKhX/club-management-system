@@ -118,13 +118,6 @@ class PlayerResource extends Resource
                     ->sortable()
                     ->searchable(),
             ])
-            ->filters([
-                Tables\Filters\SelectFilter::make('club_id')
-                    ->label(__('Club'))
-                    ->options(
-                        Club::pluck('name', 'id')->toArray()
-                    ),
-            ])
             ->actions([
                 Tables\Actions\ViewAction::make()
             ]);
@@ -163,7 +156,12 @@ class PlayerResource extends Resource
     }
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()->where('club_id', Filament::auth()->user()->club_id);
+        $clubId = auth()->user()->club_id;
+        
+        return parent::getEloquentQuery()
+            ->whereHas('contracts', function ($query) use ($clubId) {
+                $query->where('club_id', $clubId);
+            });
     }
 
 }

@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('sport_federations', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name', 100);
             $table->text('description');
-            $table->string('phone')->nullable(); // Contact phone number
-            $table->string('email')->nullable(); // Contact email address
+            $table->string('phone', 100)->nullable(); // Contact phone number
+            $table->string('email', 100)->nullable(); // Contact email address
             $table->string('website')->nullable(); // Federation website URL
             $table->string('facebook_page')->nullable();
             $table->string('twitter_page')->nullable();

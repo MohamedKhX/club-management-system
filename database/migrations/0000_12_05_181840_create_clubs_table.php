@@ -13,17 +13,16 @@ return new class extends Migration
     {
         Schema::create('clubs', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name', 100);
             $table->text('description')->nullable();
-            $table->string('location')->nullable(); // Club's location
+            $table->string('location', 100)->nullable();
             $table->date('founded_date')->nullable();
-            $table->string('phone')->nullable(); // Contact phone number
-            $table->string('email')->nullable(); // Contact email address
-            $table->string('website')->nullable(); // Federation website URL
+            $table->string('phone', 100)->nullable();
+            $table->string('email', 100)->nullable();
+            $table->string('website')->nullable();
             $table->string('facebook_page')->nullable();
             $table->string('twitter_page')->nullable();
-
-            $table->foreignId('sport_federation_id')->nullable()->constrained()->onDelete('set null'); // Associated sport federation
+            $table->foreignId('sport_federation_id')->nullable()->constrained()->onDelete('set null');
             $table->timestamps();
         });
     }
