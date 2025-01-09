@@ -19,7 +19,7 @@ class PlayerSeeder extends Seeder
             'state' => PlayerStateEnum::Active,
             'sport_federation_id' => 1,
         ]);
-        $player->addMediaFromUrl('https://club-management-system.laraplay.fun/images/team-m1.png')
+        $player->addMediaFromUrl('https://i.ibb.co/D7LvNCd/team-m1.png')
             ->toMediaCollection('avatar');
 
         $player = Player::create([
@@ -30,7 +30,7 @@ class PlayerSeeder extends Seeder
             'state' => PlayerStateEnum::Active,
             'sport_federation_id' => 1,
         ]);
-        $player->addMediaFromUrl('https://club-management-system.laraplay.fun/images/team-m1.png')
+        $player->addMediaFromUrl('https://i.ibb.co/D7LvNCd/team-m1.png')
             ->toMediaCollection('avatar');
 
         $player = Player::create([
@@ -41,7 +41,7 @@ class PlayerSeeder extends Seeder
             'state' => PlayerStateEnum::Injured,
             'sport_federation_id' => 1,
         ]);
-        $player->addMediaFromUrl('https://club-management-system.laraplay.fun/images/team-m1.png')
+        $player->addMediaFromUrl('https://i.ibb.co/D7LvNCd/team-m1.png')
             ->toMediaCollection('avatar');
 
         $player = Player::create([
@@ -52,7 +52,7 @@ class PlayerSeeder extends Seeder
             'state' => PlayerStateEnum::Active,
             'sport_federation_id' => 1,
         ]);
-        $player->addMediaFromUrl('https://club-management-system.laraplay.fun/images/team-m1.png')
+        $player->addMediaFromUrl('https://i.ibb.co/D7LvNCd/team-m1.png')
             ->toMediaCollection('avatar');
 
         $player = Player::create([
@@ -63,7 +63,7 @@ class PlayerSeeder extends Seeder
             'state' => PlayerStateEnum::Active,
             'sport_federation_id' => 1,
         ]);
-        $player->addMediaFromUrl('https://club-management-system.laraplay.fun/images/team-m1.png')
+        $player->addMediaFromUrl('https://i.ibb.co/D7LvNCd/team-m1.png')
             ->toMediaCollection('avatar');
 
         // Basketball Players
@@ -75,7 +75,7 @@ class PlayerSeeder extends Seeder
             'state' => PlayerStateEnum::Active,
             'sport_federation_id' => 2,
         ]);
-        $player->addMediaFromUrl('https://club-management-system.laraplay.fun/images/team-m1.png')
+        $player->addMediaFromUrl('https://i.ibb.co/D7LvNCd/team-m1.png')
             ->toMediaCollection('avatar');
 
         $player = Player::create([
@@ -86,7 +86,7 @@ class PlayerSeeder extends Seeder
             'state' => PlayerStateEnum::Active,
             'sport_federation_id' => 2,
         ]);
-        $player->addMediaFromUrl('https://club-management-system.laraplay.fun/images/team-m1.png')
+        $player->addMediaFromUrl('https://i.ibb.co/D7LvNCd/team-m1.png')
             ->toMediaCollection('avatar');
     }
 }
