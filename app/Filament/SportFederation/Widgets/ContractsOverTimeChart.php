@@ -16,12 +16,16 @@ class ContractsOverTimeChart extends ChartWidget
     {
         $sportFederationId = auth()->user()->sport_federation_id;
 
+        $databaseDriver = DB::getDriverName();
+
         $contracts = Contract::where('sport_federation_id', $sportFederationId)
             ->where('created_at', '>=', Carbon::now()->subMonths(6))
-            ->select(
-                DB::raw('DATE_FORMAT(created_at, "%Y-%m") as month'),
-                DB::raw('count(*) as count')
+            ->selectRaw(
+                $databaseDriver === 'sqlite'
+                    ? 'strftime("%Y-%m", created_at) as month'
+                    : 'DATE_FORMAT(created_at, "%Y-%m") as month'
             )
+            ->selectRaw('count(*) as count')
             ->groupBy('month')
             ->orderBy('month')
             ->pluck('count', 'month')
