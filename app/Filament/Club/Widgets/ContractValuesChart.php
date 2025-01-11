@@ -18,11 +18,15 @@ class ContractValuesChart extends ChartWidget
 
         $contractValues = Contract::where('club_id', $clubId)
             ->where('created_at', '>=', Carbon::now()->subMonths(12))
-            ->select(
-                DB::raw('strftime("%Y-%m", created_at) as month'), // Use strftime for SQLite
+            ->selectRaw(
+                DB::connection()->getDriverName() === 'sqlite'
+                    ? 'strftime("%Y-%m", created_at) as month'
+                    : 'DATE_FORMAT(created_at, "%Y-%m") as month'
+            )
+            ->addSelect([
                 DB::raw('SUM(amount) as total_value'),
                 DB::raw('COUNT(*) as count')
-            )
+            ])
             ->groupBy('month')
             ->orderBy('month')
             ->get();
