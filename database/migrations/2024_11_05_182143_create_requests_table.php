@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('requests', function (Blueprint $table) {
             $table->id();
             $table->text('description')->nullable();
-            $table->enum('state', RequestStateEnum::values());
+            $table->enum('state', RequestStateEnum::values())
+                ->default(RequestStateEnum::Pending);
             $table->enum('type', RequestTypeEnum::values());
 
             $table->foreignId('player_id')->constrained()->onDelete('cascade');
