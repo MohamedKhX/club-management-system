@@ -38,10 +38,18 @@ class SportFederationStatsOverview extends BaseWidget
             ->toArray();
 
         // Monthly New Players
+        $databaseDriver = DB::getDriverName();
+
         $monthlyPlayers = Player::where('sport_federation_id', $sportFederationId)
             ->where('created_at', '>=', Carbon::now()->subMonths(6))
-            ->select(DB::raw('MONTH(created_at) as month'), DB::raw('count(*) as count'))
+            ->selectRaw(
+                $databaseDriver === 'sqlite'
+                    ? 'strftime("%m", created_at) as month'
+                    : 'MONTH(created_at) as month'
+            )
+            ->selectRaw('count(*) as count')
             ->groupBy('month')
+            ->orderBy('month')
             ->pluck('count', 'month')
             ->toArray();
 
@@ -105,4 +113,4 @@ class SportFederationStatsOverview extends BaseWidget
                 ->chart([3, 5, $totalReports, 4, 7, 5]),
         ];
     }
-} 
+}
