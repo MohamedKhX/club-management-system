@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->text('description')->nullable();
             $table->enum('state', RequestStateEnum::values())
-                ->default(RequestStateEnum::Pending);
+                ->default(RequestStateEnum::Pending->value);
             $table->enum('type', RequestTypeEnum::values());
 
             $table->foreignId('player_id')->constrained()->onDelete('cascade');
