@@ -2,6 +2,7 @@
 
 namespace App\Filament\SportFederation\Resources;
 
+use App\Enums\ClubTypeEnum;
 use App\Filament\SportFederation\Resources\ClubResource\Pages;
 use App\Filament\SportFederation\Resources\ClubResource\RelationManagers;
 use App\Models\Club;
@@ -12,6 +13,7 @@ use Filament\Forms\Components\Card;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -52,6 +54,13 @@ class ClubResource extends Resource
                                     ->label(__('Location')) // Translate label
                                     ->placeholder(__('Enter the club location')), // Translation for placeholder
                             ]),
+
+                        Select::make('type')
+                            ->label('Type')
+                            ->translateLabel()
+                            ->options(ClubTypeEnum::getTranslations())
+                            ->searchable()
+                            ->required(),
 
                         TextInput::make('phone')
                             ->label('Phone Number')
@@ -129,19 +138,30 @@ class ClubResource extends Resource
                     ->circular(),
 
                 TextColumn::make('name')
-                    ->label(__('Club Name'))
+                    ->label('Club Name')
+                    ->translateLabel()
                     ->sortable()
                     ->searchable()
                     ->description(fn($record) => $record->description)
                     ->limit(50),
 
+                TextColumn::make('type')
+                    ->label('Type')
+                    ->translateLabel()
+                    ->badge()
+                    ->sortable()
+                    ->formatStateUsing(fn($state) => $state->translate()),
+
+
                 TextColumn::make('location')
-                    ->label(__('Location'))
+                    ->label('Location')
+                    ->translateLabel()
                     ->sortable()
                     ->limit(50),
 
                 TextColumn::make('founded_date')
-                    ->label(__('Founded Date'))
+                    ->label('Founded Date')
+                    ->translateLabel()
                     ->sortable()
                     ->searchable(),
             ])

@@ -20,4 +20,9 @@ class Report extends Model
     {
         return $this->belongsTo(Club::class);
     }
+
+    public function sportFederation(): BelongsTo
+    {
+        return $this->belongsTo(SportFederation::class);
+    }
 }

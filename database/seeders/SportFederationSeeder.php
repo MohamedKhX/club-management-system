@@ -20,7 +20,7 @@ class SportFederationSeeder extends Seeder
             'twitter_page' => 'https://twitter.com/LibyanFF',
         ]);
 
-        $federation->addMediaFromUrl('https://scontent.fmji3-1.fna.fbcdn.net/v/t39.30808-6/347431129_249064861165507_5906586683997689020_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=MtA7Vq996ckQ7kNvgHHv7Pq&_nc_zt=23&_nc_ht=scontent.fmji3-1.fna&_nc_gid=AGpCX0TKrQRPix4hcILjMU2&oh=00_AYA1AKtspYYrJ_T6z9jSenPCU4CoF7fFygcpEXvsUECr_w&oe=6785413D')
+        $federation->addMediaFromUrl('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9piADDc6VbC35-ed5_53xVf8WLDtq18NvXv111IvK2NqEwR3EjhLwmTJ9Nsd0KoS6QP8&usqp=CAU')
             ->toMediaCollection('logo');
 
         // Basketball Federation

@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\ClubTypeEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -22,6 +23,10 @@ return new class extends Migration
             $table->string('website')->nullable();
             $table->string('facebook_page')->nullable();
             $table->string('twitter_page')->nullable();
+
+            $table->enum('type', ClubTypeEnum::values())
+                ->default(ClubTypeEnum::PremierLeague->value);
+
             $table->foreignId('sport_federation_id')->nullable()->constrained()->onDelete('set null');
             $table->timestamps();
         });

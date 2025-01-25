@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Enums\ClubTypeEnum;
 use App\Enums\PlayerStateEnum;
 use App\Enums\RequestStateEnum;
 use App\Enums\RequestTypeEnum;
@@ -23,5 +24,12 @@ return [
         RequestTypeEnum::PlayerRegistration->value => 'تسجيل لاعب',
         RequestTypeEnum::PlayerPurchase->value => 'شراء لاعب',
         RequestTypeEnum::PlayerLoan->value => 'إعارة لاعب',
+    ],
+
+    'club_type_enum' => [
+        ClubTypeEnum::PremierLeague->value => 'الدور الممتاز',
+        ClubTypeEnum::FirstDivisionLeague->value => 'الدوري الدرجة الأولى',
+        ClubTypeEnum::SecondDivisionLeague->value => 'الدوري الدرجة الثانية',
+        ClubTypeEnum::ThirdDivisionLeague->value => 'الدوري الدرجة الثالثة',
     ],
 ];

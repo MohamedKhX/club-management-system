@@ -43,10 +43,39 @@ class PlayerResource extends Resource
                     ->label("Info")
                     ->translateLabel()
                     ->schema([
-                        TextInput::make('name')
-                            ->label('Name')
+                        TextInput::make('first_name')
+                            ->label('First Name')
                             ->translateLabel()
                             ->minLength(3)
+                            ->maxLength(100)
+                            ->required(),
+
+                        TextInput::make('middle_name')
+                            ->label('Middle Name')
+                            ->translateLabel()
+                            ->minLength(3)
+                            ->maxLength(100)
+                            ->required(),
+
+
+                        TextInput::make('grandfather_name')
+                            ->label('Grandfather Name')
+                            ->translateLabel()
+                            ->minLength(3)
+                            ->maxLength(100)
+                            ->required(),
+
+                        TextInput::make('last_name')
+                            ->label('Last Name')
+                            ->translateLabel()
+                            ->minLength(3)
+                            ->maxLength(100)
+                            ->required(),
+
+                        TextInput::make('national_number')
+                            ->label('National Number')
+                            ->translateLabel()
+                            ->numeric()
                             ->maxLength(100)
                             ->required(),
 
@@ -62,6 +91,13 @@ class PlayerResource extends Resource
                             ->maxLength(100)
                             ->nullable(),
 
+                        TextInput::make('tunic_number')
+                            ->label('Tunic Number')
+                            ->translateLabel()
+                            ->numeric()
+                            ->maxLength(100)
+                            ->required(),
+
                         TextInput::make('nationality')
                             ->label('Nationality')
                             ->translateLabel()
@@ -72,6 +108,18 @@ class PlayerResource extends Resource
                         SpatieMediaLibraryFileUpload::make('avatar')
                             ->collection('avatar')
                             ->label('Player Avatar')
+                            ->translateLabel()
+                            ->image(),
+
+                        SpatieMediaLibraryFileUpload::make('birth_certificate')
+                            ->collection('birth_certificate')
+                            ->label('Birth Certificate')
+                            ->translateLabel()
+                            ->image(),
+
+                        SpatieMediaLibraryFileUpload::make('passport')
+                            ->collection('passport')
+                            ->label('Passport')
                             ->translateLabel()
                             ->image(),
 
@@ -157,7 +205,7 @@ class PlayerResource extends Resource
     public static function getEloquentQuery(): Builder
     {
         $clubId = auth()->user()->club_id;
-        
+
         return parent::getEloquentQuery()
             ->whereHas('contracts', function ($query) use ($clubId) {
                 $query->where('club_id', $clubId);

@@ -15,6 +15,7 @@ use Filament\Tables;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class SportFederationResource extends Resource
 {
@@ -23,6 +24,8 @@ class SportFederationResource extends Resource
     protected static ?string $model = SportFederation::class;
 
     protected static ?string $navigationIcon = 'fluentui-sport-24-o';
+
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {

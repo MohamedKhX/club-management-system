@@ -37,5 +37,10 @@ class Player extends Model implements HasMedia
         return $this->hasMany(Contract::class);
     }
 
-
+    public function name(): Attribute
+    {
+        return new Attribute(function ($value) {
+            return $this->first_name . ' ' . $this->last_name;
+        });
+    }
 }

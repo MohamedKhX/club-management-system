@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ClubTypeEnum;
 use App\Enums\PlayerStateEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,6 +17,10 @@ class Club extends Model implements HasMedia
         InteractsWithMedia;
 
     protected $guarded = [];
+
+    protected $casts = [
+        'type' => ClubTypeEnum::class,
+    ];
 
     public function sportFederation(): BelongsTo
     {

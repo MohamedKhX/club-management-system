@@ -31,6 +31,7 @@ class ClubPanelProvider extends PanelProvider
             ->font('Rubik')
             ->path('club')
             ->login()
+            ->passwordReset()
             ->renderHook(PanelsRenderHook::AUTH_LOGIN_FORM_BEFORE, function () {
                 return '<div class="text-center font-bold text-purple-600 text-sm">النادي</div>';
             })

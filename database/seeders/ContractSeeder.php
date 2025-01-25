@@ -63,25 +63,5 @@ class ContractSeeder extends Seeder
             'amount' => 160000,
         ]);
 
-        // Basketball Contracts
-        Contract::create([
-            'player_id' => 6, // محمد الزوي
-            'club_id' => 4,   // المروج
-            'sport_federation_id' => 2,
-            'start_date' => '2023-09-01',
-            'end_date' => '2024-08-31',
-            'signed_date' => '2023-08-20',
-            'amount' => 120000,
-        ]);
-
-        Contract::create([
-            'player_id' => 7, // عمر التاورغي
-            'club_id' => 5,   // النصر
-            'sport_federation_id' => 2,
-            'start_date' => '2023-08-01',
-            'end_date' => '2024-07-31',
-            'signed_date' => '2023-07-20',
-            'amount' => 130000,
-        ]);
     }
 }
