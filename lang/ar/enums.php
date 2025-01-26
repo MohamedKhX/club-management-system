@@ -28,7 +28,7 @@ return [
     ],
 
     'club_type_enum' => [
-        ClubTypeEnum::PremierLeague->value => 'الدور الممتاز',
+        ClubTypeEnum::PremierLeague->value => 'الدوري الممتاز',
         ClubTypeEnum::FirstDivisionLeague->value => 'الدوري الدرجة الأولى',
         ClubTypeEnum::SecondDivisionLeague->value => 'الدوري الدرجة الثانية',
         ClubTypeEnum::ThirdDivisionLeague->value => 'الدوري الدرجة الثالثة',
