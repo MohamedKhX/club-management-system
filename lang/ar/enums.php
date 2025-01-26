@@ -24,6 +24,7 @@ return [
         RequestTypeEnum::PlayerRegistration->value => 'تسجيل لاعب',
         RequestTypeEnum::PlayerPurchase->value => 'شراء لاعب',
         RequestTypeEnum::PlayerLoan->value => 'إعارة لاعب',
+        RequestTypeEnum::TerminationOfContract->value => 'فسخ عقد',
     ],
 
     'club_type_enum' => [

@@ -81,7 +81,7 @@ class PlayerSeeder extends Seeder
             'tunic_number' => '12',
             'is_active' => true,
             'state' => PlayerStateEnum::Active,
-            'sport_federation_id' => 2,
+            'sport_federation_id' => 1,
         ]);
         $player->addMediaFromUrl('https://i.ibb.co/D7LvNCd/team-m1.png')
             ->toMediaCollection('avatar');
@@ -99,7 +99,7 @@ class PlayerSeeder extends Seeder
             'tunic_number' => '7',
             'is_active' => true,
             'state' => PlayerStateEnum::Active,
-            'sport_federation_id' => 2,
+            'sport_federation_id' => 1,
         ]);
         $player->addMediaFromUrl('https://i.ibb.co/D7LvNCd/team-m1.png')
             ->toMediaCollection('avatar');

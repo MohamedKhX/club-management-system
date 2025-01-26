@@ -3,6 +3,7 @@
 namespace App\Filament\SportFederation\Resources;
 
 use App\Enums\RequestStateEnum;
+use App\Enums\RequestTypeEnum;
 use App\Filament\SportFederation\Resources\RequestResource\Pages;
 use App\Filament\SportFederation\Resources\RequestResource\RelationManagers;
 use App\Models\Club;
@@ -17,6 +18,7 @@ use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Support\Colors\Color;
 use Filament\Tables;
@@ -138,6 +140,39 @@ class RequestResource extends Resource
                                 );
                             });
                         }
+                    })
+                    ->hidden(function($record) {
+                        if($record->type != RequestTypeEnum::PlayerRegistration && $record->state == RequestStateEnum::Approved) {
+                            return false;
+                        }
+
+                        return true;
+                    }),
+
+                Tables\Actions\Action::make('accept_player')
+                    ->label('الموافقة على اللاعب')
+                    ->icon('tabler-check')
+                    ->color(Color::Green)
+                    ->hidden(function($record) {
+                        if($record->type == RequestTypeEnum::PlayerRegistration && $record->state != RequestStateEnum::Approved) {
+                            return false;
+                        }
+
+                        return true;
+                    })
+                    ->requiresConfirmation()
+                    ->action(function ($record) {
+                        $record->player->update([
+                            'is_active' => true
+                        ]);
+
+                        $record->state = RequestStateEnum::Approved;
+                        $record->save();
+
+                        Notification::make()
+                            ->title('تمت الموافقة على اللاعب')
+                            ->body('تمت الموافقة على اللاعب بنجاح')
+                            ->send();
                     })
             ]);
     }

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Filament\SportFederation\Resources;
+namespace App\Filament\Club\Resources;
 
-use App\Enums\PlayerStateEnum;
-use App\Enums\RequestStatus;
-use App\Filament\SportFederation\Resources\PlayerResource\Pages;
-use App\Filament\SportFederation\Resources\PlayerResource\RelationManagers;
+use App\Filament\Club\Resources\AllPlayerResource\Pages;
+use App\Filament\Club\Resources\AllPlayerResource\RelationManagers;
+use App\Filament\SportFederation\Resources\PlayerResource\RelationManagers\ContractsRelationManager;
+use App\Models\AllPlayer;
 use App\Models\Club;
 use App\Models\Player;
 use App\Traits\HasTranslatedLabels;
@@ -13,90 +13,26 @@ use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Fieldset;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Support\Colors\Color;
 use Filament\Tables;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class PlayerResource extends Resource
+class AllPlayerResource extends Resource
 {
     use HasTranslatedLabels;
 
     protected static ?string $model = Player::class;
 
     protected static ?string $navigationIcon = 'iconpark-sport';
-
-    public static function table(Table $table): Table
-    {
-        return $table
-            ->columns([
-                SpatieMediaLibraryImageColumn::make('avatar')
-                    ->label("Player Avatar")
-                    ->collection('avatar')
-                    ->translateLabel()
-                    ->circular(),
-
-                TextColumn::make('name')
-                    ->label(__('Name'))
-                    ->sortable()
-                    ->searchable(),
-
-
-                TextColumn::make('date_of_birth')
-                    ->label(__('Date of Birth'))
-                    ->sortable(),
-
-                TextColumn::make('position')
-                    ->label(__('Position'))
-                    ->sortable()
-                    ->searchable(),
-
-                TextColumn::make('nationality')
-                    ->label(__('Nationality'))
-                    ->sortable()
-                    ->searchable(),
-
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
-               /* Tables\Actions\Action::make('show_contract')
-                    ->label('Show Contract')
-                    ->translateLabel()
-                    ->color(Color::Green)
-                    ->icon('iconpark-eyes')
-                    ->url(fn (Player $player) => $player->getFirstMediaUrl('contract'), true),*/
-
-           /*     Tables\Actions\Action::make('change_state')
-                    ->label('Change State')
-                    ->translateLabel()
-                    ->color(Color::Amber)
-                    ->icon('iconpark-circlethree')
-                    ->form([
-                        Select::make('state')
-                            ->options([
-                                PlayerStateEnum::Active->value => PlayerStateEnum::Active->translate(),
-                                PlayerStateEnum::Inactive->value => PlayerStateEnum::Inactive->translate(),
-                            ])
-                            ->translateLabel()
-                            ->required()
-                            ->native(false),
-                    ])
-                    ->action(function (array $data, Player $player): void {
-                        $player->state = $data['state'];
-                        $player->save();
-                    }),*/
-            ]);
-    }
 
     public static function form(Form $form): Form
     {
@@ -189,28 +125,114 @@ class PlayerResource extends Resource
                         Forms\Components\Hidden::make('sport_federation_id')
                             ->default(Filament::auth()->user()->sport_federation_id),
                     ])
-                ->columns(1)
+                    ->columns(1)
             ])->columns(1);
     }
 
-    public static function getPages(): array
+    public static function table(Table $table): Table
     {
-        return [
-            'index' => Pages\ListPlayers::route('/'),
-            'create' => Pages\CreatePlayer::route('/create'),
-            'edit' => Pages\EditPlayer::route('/{record}/edit'),
-        ];
+        return $table
+            ->columns([
+                SpatieMediaLibraryImageColumn::make('avatar')
+                    ->label("Player Avatar")
+                    ->translateLabel()
+                    ->collection('avatar')
+                    ->circular(),
+
+                TextColumn::make('name')
+                    ->label('Name')
+                    ->translateLabel()
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('date_of_birth')
+                    ->label('Date of Birth')
+                    ->translateLabel()
+                    ->sortable(),
+
+                TextColumn::make('position')
+                    ->label('Position')
+                    ->translateLabel()
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('nationality')
+                    ->label('Nationality')
+                    ->translateLabel()
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('nationality')
+                    ->label('Nationality')
+                    ->translateLabel()
+                    ->sortable()
+                    ->searchable(),
+
+
+                TextColumn::make('followingClub')
+                    ->label('Club')
+                    ->translateLabel()
+                    ->badge()
+            ])
+            ->actions([
+                Tables\Actions\ViewAction::make()
+            ]);
     }
 
     public static function getRelations(): array
     {
         return [
-            RelationManagers\ContractsRelationManager::make()
+            ContractsRelationManager::make()
+        ];
+    }
+
+
+    public static function getPages(): array
+    {
+        return [
+            'index' => Pages\ListAllPlayers::route('/'),
+            'create' => Pages\CreateAllPlayer::route('/create'),
+            'edit' => Pages\EditAllPlayer::route('/{record}/edit'),
         ];
     }
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()->where('sport_federation_id', Filament::auth()->user()->sport_federation_id);
+        return parent::getEloquentQuery()->where('sport_federation_id', Filament::auth()->user()->club->sport_federation_id);
+    }
+
+    public static function canCreate(): bool
+    {
+        return false;
+    }
+
+    public static function canEdit(Model $record): bool
+    {
+        return false;
+    }
+
+    public static function canView(Model $record): bool
+    {
+        return true;
+    }
+
+    public static function canViewAny(): bool
+    {
+        return true;
+    }
+
+    public static function getPluralLabel(): ?string
+    {
+        return 'كل اللاعبين';
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return 'كل اللاعبين';
+    }
+
+    public function getHeading(): string|Htmlable
+    {
+        return 'كل اللاعبين';
     }
 }

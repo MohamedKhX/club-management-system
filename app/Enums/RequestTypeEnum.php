@@ -11,4 +11,6 @@ enum RequestTypeEnum: string
     case PlayerRegistration = "Player Registration";
     case PlayerPurchase     = "Player Purchase";
     case PlayerLoan         = "Player Loan";
+
+    case TerminationOfContract = 'Termination of Contract';
 }

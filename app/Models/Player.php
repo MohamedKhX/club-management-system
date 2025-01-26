@@ -22,6 +22,18 @@ class Player extends Model implements HasMedia
         'state' => PlayerStateEnum::class,
     ];
 
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('avatar')->singleFile();
+        $this->addMediaCollection('birth_certificate')->singleFile();
+        $this->addMediaCollection('passport')->singleFile();
+    }
+
+    public function avatar(): Attribute
+    {
+        return Attribute::get(fn() => $this->getMedia('avatar'));
+    }
+
     public function club(): BelongsTo
     {
         return $this->belongsTo(Club::class);
@@ -41,6 +53,13 @@ class Player extends Model implements HasMedia
     {
         return new Attribute(function ($value) {
             return $this->first_name . ' ' . $this->last_name;
+        });
+    }
+
+    public function followingClub(): Attribute
+    {
+        return Attribute::get(function () {
+            return $this->contracts->last()->club->name ?? 'لا يتبع أي نادي';
         });
     }
 }

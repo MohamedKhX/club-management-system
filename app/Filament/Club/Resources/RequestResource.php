@@ -20,6 +20,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class RequestResource extends Resource
@@ -40,31 +41,52 @@ class RequestResource extends Resource
                             ->label('Type')
                             ->translateLabel()
                             ->options(RequestTypeEnum::getTranslations())
-                            ->required(),
+                            ->required()
+                            ->live(),
 
                         Select::make('player_id')
                             ->label('Player')
                             ->translateLabel()
-                            ->options(Player::pluck('name', 'id'))
+                            ->options(
+                                Player::selectRaw("CONCAT(first_name, ' ', middle_name, ' ', last_name) AS full_name, id")
+                                    ->pluck('full_name', 'id')
+                            )
                             ->searchable()
-                            ->required(),
+                            ->required()
+                            ->disabled(fn($get) => $get('type') == RequestTypeEnum::PlayerRegistration->value)
+                            ->hidden(fn($get) => $get('type') == RequestTypeEnum::PlayerRegistration->value),
 
                         Textarea::make('description')
                             ->label('Description')
                             ->translateLabel()
                             ->rows(4)
-                            ->nullable(),
+                            ->nullable()
+                            ->disabled(fn($get) => $get('type') == RequestTypeEnum::PlayerRegistration->value)
+                            ->hidden(fn($get) => $get('type') == RequestTypeEnum::PlayerRegistration->value),
 
                         SpatieMediaLibraryFileUpload::make('Contract')
                             ->collection('contract')
                             ->label('Contract')
-                            ->translateLabel(),
+                            ->translateLabel()
+                            ->hidden(fn($get) => $get('type') == RequestTypeEnum::PlayerRegistration->value),
+
+                        Hidden::make('sport_federation_id')
+                            ->default(auth()->user()->club->sport_federation_id),
+
+                        Forms\Components\Section::make('player')
+                            ->heading('بيانات اللاعب')
+                            ->statePath('player')
+                            ->schema(function() use($form) {
+                                return [
+                                    ... PlayerResource::getFormSchema(true)
+                                ];
+                            })
+                            ->disabled(fn($get) => $get('type') != RequestTypeEnum::PlayerRegistration->value)
+                            ->hidden(fn($get) => $get('type') != RequestTypeEnum::PlayerRegistration->value),
 
                         Hidden::make('club_id')
                             ->default(auth()->user()->club_id),
 
-                        Hidden::make('sport_federation_id')
-                            ->default(auth()->user()->club->sport_federation_id),
                     ])->columns(1)
             ]);
     }
@@ -85,7 +107,10 @@ class RequestResource extends Resource
                     ->formatStateUsing(fn($state) => $state->translate()),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make()
+                    ->mutateRecordDataUsing(function ($record) {
+                        return $record->toArray();
+                }),
             ]);
     }
 
@@ -101,5 +126,10 @@ class RequestResource extends Resource
             'create' => Pages\CreateRequest::route('/create'),
             'edit' => Pages\EditRequest::route('/{record}/edit'),
         ];
+    }
+
+    public static function canEdit(Model $record): bool
+    {
+        return false;
     }
 }
