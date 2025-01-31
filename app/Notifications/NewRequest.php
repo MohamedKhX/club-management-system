@@ -42,11 +42,6 @@ class NewRequest extends Notification
             ->title('طلب جديد')
             ->info()
             ->body('طلب جديد من ' . $this->request->club->name)
-            ->actions([
-                  /*\Filament\Notifications\Actions\Action::make('view')
-                      ->label('عرض')
-                      ->url(RequestResource::getUrl('index')),*/
-            ])
             ->getDatabaseMessage();
     }
 }

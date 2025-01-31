@@ -19,10 +19,6 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ReportResource extends Resource
 {
-    use HasTranslatedLabels;
-
-    protected static ?string $model = Report::class;
-
     protected static ?string $navigationIcon = 'tabler-message-report';
 
     public static function form(Form $form): Form
@@ -77,6 +73,33 @@ class ReportResource extends Resource
                 Tables\Actions\DeleteAction::make()
             ]);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    use HasTranslatedLabels;
+
+    protected static ?string $model = Report::class;
 
     public static function getPages(): array
     {

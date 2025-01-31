@@ -3,7 +3,6 @@
 namespace App\Filament\Admin\Resources;
 
 use App\Filament\Admin\Resources\ReportResource\Pages;
-use App\Filament\Admin\Resources\ReportResource\RelationManagers;
 use App\Models\Report;
 use App\Traits\HasTranslatedLabels;
 use Filament\Forms;
@@ -15,14 +14,10 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+
 
 class ReportResource extends Resource
 {
-    use HasTranslatedLabels;
-
-    protected static ?string $model = Report::class;
-
     protected static ?string $navigationIcon = 'tabler-message-report';
 
     protected static ?int $navigationSort = 2;
@@ -45,6 +40,7 @@ class ReportResource extends Resource
 
                         Hidden::make('sport_federation_id')
                             ->default(auth()->user()->sport_federation_id),
+
                     ])->columns(1)
             ]);
     }
@@ -55,13 +51,15 @@ class ReportResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('title')
-                    ->label(__('Title'))
+                    ->label('Title')
+                    ->translateLabel()
                     ->sortable()
                     ->searchable()
                     ->limit(50),
 
                 TextColumn::make('content')
-                    ->label(__('Content'))
+                    ->label('Content')
+                    ->translateLabel()
                     ->limit(100)
                     ->wrap(),
 
@@ -76,6 +74,30 @@ class ReportResource extends Resource
                 Tables\Actions\ViewAction::make()
             ]);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    use HasTranslatedLabels;
+
+    protected static ?string $model = Report::class;
 
     public static function getPages(): array
     {

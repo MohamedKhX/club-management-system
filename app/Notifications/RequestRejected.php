@@ -41,11 +41,6 @@ class RequestRejected extends Notification
         return \Filament\Notifications\Notification::make()
             ->title('تم رفض الطلب')
             ->danger()
-            ->actions([
-                /*\Filament\Notifications\Actions\Action::make('view')
-                    ->label('عرض')
-                    ->url(RequestResource::getUrl('index')),*/
-            ])
             ->body($this->request->description)
             ->getDatabaseMessage();
     }

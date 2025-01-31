@@ -2,10 +2,8 @@
 
 namespace App\Filament\Club\Resources;
 
-use App\Enums\RequestStateEnum;
 use App\Enums\RequestTypeEnum;
 use App\Filament\Club\Resources\RequestResource\Pages;
-use App\Filament\Club\Resources\RequestResource\RelationManagers;
 use App\Models\Player;
 use App\Models\Request;
 use App\Traits\HasTranslatedLabels;
@@ -21,14 +19,9 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class RequestResource extends Resource
 {
-    use HasTranslatedLabels;
-
-    protected static ?string $model = Request::class;
-
     protected static ?string $navigationIcon = 'tabler-git-pull-request';
 
     public static function form(Form $form): Form
@@ -113,6 +106,37 @@ class RequestResource extends Resource
                 }),
             ]);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    use HasTranslatedLabels;
+
+    protected static ?string $model = Request::class;
+
 
     public static function getEloquentQuery(): Builder
     {

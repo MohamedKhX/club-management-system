@@ -31,20 +31,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class RequestResource extends Resource
 {
-    use HasTranslatedLabels;
-    protected static ?string $model = Request::class;
-
     protected static ?string $navigationIcon = 'tabler-git-pull-request';
 
-    public static function canCreate(): bool
-    {
-        return false;
-    }
-
-    public static function canEdit(Model $record): bool
-    {
-        return false;
-    }
 
     public static function table(Table $table): Table
     {
@@ -176,6 +164,49 @@ class RequestResource extends Resource
                     })
             ]);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    use HasTranslatedLabels;
+    protected static ?string $model = Request::class;
+
+    public static function canCreate(): bool
+    {
+        return false;
+    }
+
+    public static function canEdit(Model $record): bool
+    {
+        return false;
+    }
+
+
 
     public static function getPages(): array
     {

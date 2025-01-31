@@ -46,11 +46,6 @@ class NewReport extends Notification
             ->title('بلاغ جديد')
             ->info()
             ->body($this->report->title)
-            ->actions([
-              /*  \Filament\Notifications\Actions\Action::make('view')
-                    ->label('عرض')
-                    ->url(\App\Filament\Club\Resources\ReportResource::getUrl('index')),*/
-            ])
             ->getDatabaseMessage();
     }
 }

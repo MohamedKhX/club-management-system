@@ -19,10 +19,6 @@ use Illuminate\Database\Eloquent\Builder;
 
 class SportFederationResource extends Resource
 {
-    use HasTranslatedLabels;
-
-    protected static ?string $model = SportFederation::class;
-
     protected static ?string $navigationIcon = 'fluentui-sport-24-o';
 
     protected static ?int $navigationSort = 1;
@@ -115,6 +111,23 @@ class SportFederationResource extends Resource
                 Tables\Actions\EditAction::make(),
             ]);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    use HasTranslatedLabels;
+
+    protected static ?string $model = SportFederation::class;
 
     public static function getRelations(): array
     {

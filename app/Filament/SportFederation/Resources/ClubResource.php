@@ -8,7 +8,6 @@ use App\Filament\SportFederation\Resources\ClubResource\RelationManagers;
 use App\Models\Club;
 use App\Traits\HasTranslatedLabels;
 use Filament\Facades\Filament;
-use Filament\Forms;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Grid;
@@ -20,20 +19,13 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Columns\BooleanColumn;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ClubResource extends Resource
 {
-    use HasTranslatedLabels;
-
-    protected static ?string $model = Club::class;
-
     protected static ?string $navigationIcon = 'tabler-clubs';
 
     public static function form(Form $form): Form
@@ -115,18 +107,6 @@ class ClubResource extends Resource
             ]);
     }
 
-    public static function getRelations(): array
-    {
-        return [
-            RelationManagers\UsersRelationManager::make()
-        ];
-    }
-
-    public static function getEloquentQuery(): Builder
-    {
-        return parent::getEloquentQuery()->where('sport_federation_id', Filament::auth()->user()->sport_federation_id);
-    }
-
     public static function table(Table $table): Table
     {
         return $table
@@ -171,6 +151,45 @@ class ClubResource extends Resource
             ]);
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    use HasTranslatedLabels;
+
+    protected static ?string $model = Club::class;
+
+    public static function getRelations(): array
+    {
+        return [
+            RelationManagers\UsersRelationManager::make()
+        ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->where('sport_federation_id', Filament::auth()->user()->sport_federation_id);
+    }
 
     public static function getPages(): array
     {

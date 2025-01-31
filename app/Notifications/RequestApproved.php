@@ -38,11 +38,6 @@ class RequestApproved extends Notification
         return \Filament\Notifications\Notification::make()
             ->title('تم قبل الطلب')
             ->success()
-            ->actions([
-                /*\Filament\Notifications\Actions\Action::make('view')
-                    ->label('عرض')
-                    ->url(RequestResource::getUrl('index')),*/
-            ])
             ->body($this->request->description)
             ->getDatabaseMessage();
     }

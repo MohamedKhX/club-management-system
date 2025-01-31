@@ -3,10 +3,7 @@
 namespace App\Filament\Club\Resources;
 
 use App\Filament\Club\Resources\AllPlayerResource\Pages;
-use App\Filament\Club\Resources\AllPlayerResource\RelationManagers;
 use App\Filament\SportFederation\Resources\PlayerResource\RelationManagers\ContractsRelationManager;
-use App\Models\AllPlayer;
-use App\Models\Club;
 use App\Models\Player;
 use App\Traits\HasTranslatedLabels;
 use Filament\Facades\Filament;
@@ -24,14 +21,9 @@ use Filament\Tables\Table;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class AllPlayerResource extends Resource
 {
-    use HasTranslatedLabels;
-
-    protected static ?string $model = Player::class;
-
     protected static ?string $navigationIcon = 'iconpark-sport';
 
     public static function form(Form $form): Form
@@ -178,6 +170,29 @@ class AllPlayerResource extends Resource
                 Tables\Actions\ViewAction::make()
             ]);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    use HasTranslatedLabels;
+
+    protected static ?string $model = Player::class;
+
 
     public static function getRelations(): array
     {

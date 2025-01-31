@@ -4,16 +4,13 @@ namespace App\Filament\Club\Resources;
 
 use App\Enums\PlayerStateEnum;
 use App\Filament\Club\Resources\PlayerResource\Pages;
-use App\Filament\Club\Resources\PlayerResource\RelationManagers;
 use App\Filament\SportFederation\Resources\PlayerResource\RelationManagers\ContractsRelationManager;
-use App\Models\Club;
 use App\Models\Player;
 use App\Traits\HasTranslatedLabels;
 use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Fieldset;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -28,10 +25,72 @@ use Illuminate\Database\Eloquent\Model;
 
 class PlayerResource extends Resource
 {
-    use HasTranslatedLabels;
+
     protected static ?string $model = Player::class;
 
     protected static ?string $navigationIcon = 'iconpark-sport';
+
+    public static function table(Table $table): Table
+    {
+        return $table
+            ->columns([
+                SpatieMediaLibraryImageColumn::make('avatar')
+                    ->label("Player Avatar")
+                    ->translateLabel()
+                    ->collection('avatar')
+                    ->circular(),
+
+                TextColumn::make('name')
+                    ->label(__('Name'))
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('state')
+                    ->label(__('State'))
+                    ->sortable()
+                    ->badge()
+                    ->color(fn (Model $record) => $record->state === PlayerStateEnum::Active ? Color::Green : Color::Red)
+                    ->formatStateUsing(fn($state) => $state->translate()),
+
+                TextColumn::make('date_of_birth')
+                    ->label(__('Date of Birth'))
+                    ->sortable(),
+
+                TextColumn::make('position')
+                    ->label(__('Position'))
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('nationality')
+                    ->label(__('Nationality'))
+                    ->sortable()
+                    ->searchable(),
+            ])
+            ->actions([
+                Tables\Actions\ViewAction::make(),
+            ]);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    use HasTranslatedLabels;
 
     public static function getFormSchema($outside = false): array
     {
@@ -174,54 +233,12 @@ class PlayerResource extends Resource
         ];
     }
 
-
     public static function form(Form $form): Form
     {
         return $form
             ->schema(
                 self::getFormSchema()
             )->columns(1);
-    }
-
-    public static function table(Table $table): Table
-    {
-        return $table
-            ->columns([
-                SpatieMediaLibraryImageColumn::make('avatar')
-                    ->label("Player Avatar")
-                    ->translateLabel()
-                    ->collection('avatar')
-                    ->circular(),
-
-                TextColumn::make('name')
-                    ->label(__('Name'))
-                    ->sortable()
-                    ->searchable(),
-
-                TextColumn::make('state')
-                    ->label(__('State'))
-                    ->sortable()
-                    ->badge()
-                    ->color(fn (Model $record) => $record->state === PlayerStateEnum::Active ? Color::Green : Color::Red)
-                    ->formatStateUsing(fn($state) => $state->translate()),
-
-                TextColumn::make('date_of_birth')
-                    ->label(__('Date of Birth'))
-                    ->sortable(),
-
-                TextColumn::make('position')
-                    ->label(__('Position'))
-                    ->sortable()
-                    ->searchable(),
-
-                TextColumn::make('nationality')
-                    ->label(__('Nationality'))
-                    ->sortable()
-                    ->searchable(),
-            ])
-            ->actions([
-                Tables\Actions\ViewAction::make(),
-            ]);
     }
 
     public static function canDelete(Model $record): bool
