@@ -130,7 +130,7 @@ class RequestResource extends Resource
                         }
                     })
                     ->hidden(function($record) {
-                        if($record->type != RequestTypeEnum::PlayerRegistration && $record->state == RequestStateEnum::Approved) {
+                        if($record->type != RequestTypeEnum::PlayerCreation && $record->state == RequestStateEnum::Pending) {
                             return false;
                         }
 
@@ -142,7 +142,7 @@ class RequestResource extends Resource
                     ->icon('tabler-check')
                     ->color(Color::Green)
                     ->hidden(function($record) {
-                        if($record->type == RequestTypeEnum::PlayerRegistration && $record->state != RequestStateEnum::Approved) {
+                        if($record->type == RequestTypeEnum::PlayerCreation && $record->state == RequestStateEnum::Pending) {
                             return false;
                         }
 
@@ -161,6 +161,49 @@ class RequestResource extends Resource
                             ->title('تمت الموافقة على اللاعب')
                             ->body('تمت الموافقة على اللاعب بنجاح')
                             ->send();
+
+                        $notification = new RequestApproved($record, $record->player->name);
+
+                        Club::where('id', $record->club_id)->first()->users->each(function ($user) use ($notification) {
+                            $user->notify(
+                                $notification
+                            );
+                        });
+
+                    }),
+
+                Tables\Actions\Action::make('reject_player')
+                    ->label('رفض اللاعب')
+                    ->icon('tabler-x')
+                    ->color(Color::Red)
+                    ->hidden(function($record) {
+                        if ($record->type == RequestTypeEnum::PlayerCreation && $record->state == RequestStateEnum::Pending) {
+                            return false;
+                        }
+
+                        return true;
+                    })
+                    ->requiresConfirmation()
+                    ->action(function ($record) {
+                        $record->player->update([
+                            'is_active' => false
+                        ]);
+
+                        $record->state = RequestStateEnum::Rejected;
+                        $record->save();
+
+                        Notification::make()
+                            ->title('تم رفض اللاعب')
+                            ->body('تم رفض اللاعب بنجاح')
+                            ->send();
+
+                        $notification = new RequestRejected($record, $record->player->name);
+
+                        Club::where('id', $record->club_id)->first()->users->each(function ($user) use ($notification) {
+                            $user->notify(
+                                $notification
+                            );
+                        });
                     })
             ]);
     }

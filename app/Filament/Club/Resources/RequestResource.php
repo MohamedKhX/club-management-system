@@ -35,33 +35,52 @@ class RequestResource extends Resource
                             ->translateLabel()
                             ->options(RequestTypeEnum::getTranslations())
                             ->required()
-                            ->live(),
+                            ->live()
+                            ->reactive()
+                            ->afterStateUpdated(function($set) {
+                                $set('player_id', null);
+                            }),
 
                         Select::make('player_id')
                             ->label('Player')
                             ->translateLabel()
-                            ->options(
-                                Player::selectRaw("CONCAT(first_name, ' ', middle_name, ' ', last_name) AS full_name, id")
-                                    ->pluck('full_name', 'id')
-                            )
+                            ->options(function ($get) {
+                                if ($get('type') === RequestTypeEnum::TerminationOfContract->value) {
+                                    $clubId = auth()->user()->club_id;
+                                    $today = now()->toDateString();
+
+                                    return Player::whereHas('contracts', function ($query) use ($clubId, $today) {
+                                        $query->where('club_id', $clubId)
+                                            ->whereDate('start_date', '<=', $today)
+                                            ->whereDate('end_date', '>=', $today);
+                                    })
+                                        ->selectRaw("CONCAT(first_name, ' ', COALESCE(middle_name, ''), ' ', last_name) AS full_name, id")
+                                        ->pluck('full_name', 'id');
+                                }
+
+                                return Player::selectRaw("CONCAT(first_name, ' ', middle_name, ' ', last_name) AS full_name, id")
+                                    ->pluck('full_name', 'id');
+                            })
                             ->searchable()
-                            ->required()
-                            ->disabled(fn($get) => $get('type') == RequestTypeEnum::PlayerRegistration->value)
-                            ->hidden(fn($get) => $get('type') == RequestTypeEnum::PlayerRegistration->value),
+                            ->required(fn($get) => $get('type') == RequestTypeEnum::PlayerCreation->value)
+                            ->disabled(fn($get) => $get('type') == RequestTypeEnum::PlayerCreation->value)
+                            ->hidden(fn($get) => $get('type') == RequestTypeEnum::PlayerCreation->value)
+                            ->reactive(),
 
                         Textarea::make('description')
                             ->label('Description')
                             ->translateLabel()
                             ->rows(4)
                             ->nullable()
-                            ->disabled(fn($get) => $get('type') == RequestTypeEnum::PlayerRegistration->value)
-                            ->hidden(fn($get) => $get('type') == RequestTypeEnum::PlayerRegistration->value),
+                            ->disabled(fn($get) => $get('type') == RequestTypeEnum::PlayerCreation->value)
+                            ->hidden(fn($get) => $get('type') == RequestTypeEnum::PlayerCreation->value),
 
                         SpatieMediaLibraryFileUpload::make('Contract')
                             ->collection('contract')
                             ->label('Contract')
                             ->translateLabel()
-                            ->hidden(fn($get) => $get('type') == RequestTypeEnum::PlayerRegistration->value),
+                            ->required()
+                            ->hidden(fn($get) => $get('type') == RequestTypeEnum::PlayerCreation->value),
 
                         Hidden::make('sport_federation_id')
                             ->default(auth()->user()->club->sport_federation_id),
@@ -74,8 +93,8 @@ class RequestResource extends Resource
                                     ... PlayerResource::getFormSchema(true)
                                 ];
                             })
-                            ->disabled(fn($get) => $get('type') != RequestTypeEnum::PlayerRegistration->value)
-                            ->hidden(fn($get) => $get('type') != RequestTypeEnum::PlayerRegistration->value),
+                            ->disabled(fn($get) => $get('type') != RequestTypeEnum::PlayerCreation->value)
+                            ->hidden(fn($get) => $get('type') != RequestTypeEnum::PlayerCreation->value),
 
                         Hidden::make('club_id')
                             ->default(auth()->user()->club_id),

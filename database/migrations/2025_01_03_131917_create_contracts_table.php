@@ -17,7 +17,7 @@ return new class extends Migration
             $table->date('end_date');
             $table->date('signed_date')->nullable();
             $table->decimal('amount', 10, 2)->nullable();
-
+            $table->softDeletes();
             $table->foreignId('player_id')->constrained()->cascadeOnDelete();
             $table->foreignId('club_id')->constrained()->cascadeOnDelete();
             $table->foreignId('sport_federation_id')->constrained()->cascadeOnDelete();

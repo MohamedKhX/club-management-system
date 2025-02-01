@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreignId('sport_federation_id')->nullable()->constrained();
             $table->foreignId('club_id')->nullable()->constrained();
             $table->rememberToken();
+            $table->softDeletes();
             $table->timestamps();
         });
 

@@ -11,6 +11,7 @@ use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Fieldset;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -111,6 +112,7 @@ class PlayerResource extends Resource
                 ->collection('passport')
                 ->label('Passport')
                 ->translateLabel()
+                ->required()
                 ->image(),
         ];
 
@@ -135,6 +137,7 @@ class PlayerResource extends Resource
                 ->label('Passport')
                 ->translateLabel()
                 ->image()
+                ->required()
                 ->disk('public')
                 ->directory('attachments')
                 ->preserveFilenames(),
@@ -161,7 +164,6 @@ class PlayerResource extends Resource
                         ->maxLength(100)
                         ->required(),
 
-
                     TextInput::make('grandfather_name')
                         ->label('Grandfather Name')
                         ->translateLabel()
@@ -176,12 +178,38 @@ class PlayerResource extends Resource
                         ->maxLength(100)
                         ->required(),
 
+
+                    Select::make('citizenship')
+                        ->label('Citizenship')
+                        ->translateLabel()
+                        ->options([
+                            'Libyan' => 'ليبي',
+                            'Other' => 'جنسية أخرى',
+                        ])
+                        ->required()
+                        ->reactive()
+                        ->afterStateUpdated(function ($state, $set) {
+                            if ($state === 'Libyan') {
+                                $set('nationality', 'ليبي');
+                            }
+                        }),
+
+                    TextInput::make('nationality')
+                        ->label('Nationality')
+                        ->translateLabel()
+                        ->minLength(3)
+                        ->maxLength(100)
+                        ->required()
+                        ->visible(fn ($get): bool => $get('citizenship') === 'Other'),
+
                     TextInput::make('national_number')
                         ->label('National Number')
                         ->translateLabel()
                         ->numeric()
-                        ->maxLength(100)
-                        ->required(),
+                        ->maxLength(12)
+                        ->minLength(12)
+                        ->required()
+                        ->visible(fn ($get): bool => $get('citizenship') === 'Libyan'),
 
                     DatePicker::make('date_of_birth')
                         ->label('Date Of Birth')
@@ -199,15 +227,8 @@ class PlayerResource extends Resource
                         ->label('Tunic Number')
                         ->translateLabel()
                         ->numeric()
-                        ->maxLength(100)
-                        ->required(),
+                        ->maxLength(100),
 
-                    TextInput::make('nationality')
-                        ->label('Nationality')
-                        ->translateLabel()
-                        ->minLength(3)
-                        ->maxLength(100)
-                        ->required(),
 
                     ... $whoWin,
 
@@ -275,10 +296,13 @@ class PlayerResource extends Resource
     public static function getEloquentQuery(): Builder
     {
         $clubId = auth()->user()->club_id;
+        $today = now()->toDateString(); // Get the current date
 
         return parent::getEloquentQuery()
-            ->whereHas('contracts', function ($query) use ($clubId) {
-                $query->where('club_id', $clubId);
+            ->whereHas('contracts', function ($query) use ($clubId, $today) {
+                $query->where('club_id', $clubId)
+                    ->whereDate('start_date', '<=', $today)
+                    ->whereDate('end_date', '>=', $today);
             });
     }
 

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->enum('state', RequestStateEnum::values())
                 ->default(RequestStateEnum::Pending->value);
             $table->enum('type', RequestTypeEnum::values());
-
+            $table->softDeletes();
             $table->foreignId('player_id')->constrained()->onDelete('cascade');
             $table->foreignId('club_id')->constrained()->onDelete('cascade');
             $table->foreignId('sport_federation_id')->constrained()->onDelete('cascade');

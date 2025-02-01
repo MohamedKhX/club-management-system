@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('website')->nullable(); // Federation website URL
             $table->string('facebook_page')->nullable();
             $table->string('twitter_page')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

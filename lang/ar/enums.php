@@ -22,6 +22,7 @@ return [
 
     'request_type_enum' => [
         RequestTypeEnum::PlayerRegistration->value => 'تسجيل لاعب',
+        RequestTypeEnum::PlayerCreation->value => 'إنشاء لاعب',
         RequestTypeEnum::PlayerPurchase->value => 'شراء لاعب',
         RequestTypeEnum::PlayerLoan->value => 'إعارة لاعب',
         RequestTypeEnum::TerminationOfContract->value => 'فسخ عقد',

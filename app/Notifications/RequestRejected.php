@@ -17,13 +17,15 @@ class RequestRejected extends Notification
      * Create a new notification instance.
      */
     public Request $request;
+    public ?string $playerName;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct(Request $request)
+    public function __construct(Request $request, $playerName = null)
     {
         $this->request = $request;
+        $this->playerName = $playerName;
     }
 
     /**
@@ -38,10 +40,17 @@ class RequestRejected extends Notification
 
     public function toDatabase(User $notifiable): array
     {
+        $message = '';
+
+        if($this->playerName) {
+            $message = 'تم رفض اللاعب ' . $this->playerName;
+        } else {
+            $message = $this->request->description;
+        }
         return \Filament\Notifications\Notification::make()
             ->title('تم رفض الطلب')
             ->danger()
-            ->body($this->request->description)
+            ->body($message)
             ->getDatabaseMessage();
     }
 }

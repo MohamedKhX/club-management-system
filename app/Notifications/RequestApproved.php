@@ -14,13 +14,16 @@ class RequestApproved extends Notification
     use Queueable;
 
     public Request $request;
+    public ?string $playerName;
+
 
     /**
      * Create a new notification instance.
      */
-    public function __construct(Request $request)
+    public function __construct(Request $request, $playerName = null)
     {
         $this->request = $request;
+        $this->playerName = $playerName;
     }
 
     /**
@@ -35,10 +38,18 @@ class RequestApproved extends Notification
 
     public function toDatabase(User $notifiable): array
     {
+        $message = '';
+
+        if($this->playerName) {
+            $message = 'تم قبول اللاعب ' . $this->playerName;
+        } else {
+            $message = $this->request->description;
+        }
+
         return \Filament\Notifications\Notification::make()
-            ->title('تم قبل الطلب')
+            ->title('تم قبول الطلب')
             ->success()
-            ->body($this->request->description)
+            ->body($message)
             ->getDatabaseMessage();
     }
 }

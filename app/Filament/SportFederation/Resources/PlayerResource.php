@@ -55,6 +55,10 @@ class PlayerResource extends Resource
                     ->sortable()
                     ->searchable(),
 
+                TextColumn::make('followingClub')
+                    ->label('Club')
+                    ->translateLabel()
+                    ->badge()
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

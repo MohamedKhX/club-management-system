@@ -26,7 +26,7 @@ return new class extends Migration
 
             $table->enum('type', ClubTypeEnum::values())
                 ->default(ClubTypeEnum::PremierLeague->value);
-
+            $table->softDeletes();
             $table->foreignId('sport_federation_id')->nullable()->constrained()->onDelete('set null');
             $table->timestamps();
         });

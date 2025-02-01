@@ -22,14 +22,14 @@ return new class extends Migration
             $table->date('date_of_birth');
             $table->string('position', 100)->nullable();
             $table->string('nationality', 100)->nullable();
-            $table->string('national_number', 12);
-            $table->string('tunic_number');
+            $table->string('national_number', 12)->nullable();
+            $table->string('tunic_number')->nullable();
 
             $table->boolean('is_active')->default(true);
 
             $table->enum('state', PlayerStateEnum::values())
                 ->default(PlayerStateEnum::Inactive);  // Player status
-
+            $table->softDeletes();
             $table->foreignId('sport_federation_id')->constrained('sport_federations')->cascadeOnDelete();
             $table->timestamps();
         });

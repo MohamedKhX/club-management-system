@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('title', 100);
             $table->text('content');
-
+            $table->softDeletes();
             $table->foreignId('club_id')->nullable()->constrained()->onDelete('cascade');
             $table->foreignId('sport_federation_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();

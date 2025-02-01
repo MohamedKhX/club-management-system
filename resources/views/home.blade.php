@@ -114,7 +114,7 @@
     <!-- SportFederation Section End -->
 
     <!-- Clubs Section Start -->
-    <section class="team-page sec-padding">
+   {{-- <section class="team-page sec-padding">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 mx-auto pb-4 mb-5">
@@ -141,7 +141,7 @@
                 @endforeach
             </div>
         </div>
-    </section>
+    </section>--}}
     <!-- Clubs Section End -->
 
     <!-- Text Slide Section Start -->

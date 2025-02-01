@@ -23,12 +23,17 @@ class CreateRequest extends CreateRecord
      */
     protected function mutateFormDataBeforeCreate(array $data): array
     {
+        if(! isset($data['player'])) {
+            return $data;
+        }
+
         unset($data['player']['accept_terms']);
+        unset($data['player']['citizenship']);
         $data['player']['sport_federation_id'] = $data['sport_federation_id'];
         $data['player']['is_active'] = false;
         $playerData = collect($data['player']);
 
-// Create the player without media fields
+        // Create the player without media fields
         $player = Player::create(
             $playerData->except(['avatar', 'birth_certificate', 'passport'])->toArray()
         );
@@ -58,7 +63,7 @@ class CreateRequest extends CreateRecord
             }
         }
 
-// Clean up and return data
+        // Clean up and return data
         unset($data['player']);
         $data['player_id'] = $player->id;
 
