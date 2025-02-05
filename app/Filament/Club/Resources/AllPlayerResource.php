@@ -131,11 +131,16 @@ class AllPlayerResource extends Resource
                     ->collection('avatar')
                     ->circular(),
 
+
                 TextColumn::make('name')
                     ->label('Name')
                     ->translateLabel()
-                    ->sortable()
-                    ->searchable(),
+                    ->searchable(query: function ($query, $search) {
+                        $query->where(function ($query) use ($search) {
+                            $query->where('first_name', 'like', "%{$search}%")
+                                ->orWhere('last_name', 'like', "%{$search}%");
+                        });
+                    }),
 
                 TextColumn::make('date_of_birth')
                     ->label('Date of Birth')

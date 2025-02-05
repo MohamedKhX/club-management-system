@@ -42,28 +42,37 @@ class PlayerResource extends Resource
                     ->circular(),
 
                 TextColumn::make('name')
-                    ->label(__('Name'))
-                    ->sortable()
-                    ->searchable(),
+                    ->label('Name')
+                    ->translateLabel()
+                    ->searchable(query: function ($query, $search) {
+                        $query->where(function ($query) use ($search) {
+                            $query->where('first_name', 'like', "%{$search}%")
+                                ->orWhere('last_name', 'like', "%{$search}%");
+                        });
+                    }),
 
                 TextColumn::make('state')
-                    ->label(__('State'))
+                    ->label('State')
+                    ->translateLabel()
                     ->sortable()
                     ->badge()
                     ->color(fn (Model $record) => $record->state === PlayerStateEnum::Active ? Color::Green : Color::Red)
                     ->formatStateUsing(fn($state) => $state->translate()),
 
                 TextColumn::make('date_of_birth')
-                    ->label(__('Date of Birth'))
+                    ->label('Date of Birth')
+                    ->translateLabel()
                     ->sortable(),
 
                 TextColumn::make('position')
-                    ->label(__('Position'))
+                    ->label('Position')
+                    ->translateLabel()
                     ->sortable()
                     ->searchable(),
 
                 TextColumn::make('nationality')
-                    ->label(__('Nationality'))
+                    ->label('Nationality')
+                    ->translateLabel()
                     ->sortable()
                     ->searchable(),
             ])
