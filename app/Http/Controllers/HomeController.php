@@ -28,7 +28,8 @@ class HomeController extends Controller
         $players = Player::whereHas('contracts', function ($query) use ($club) {
             $query->where('club_id', $club->id)
                 ->where('end_date', '>=', now())
-                ->where('start_date', '<=', now());
+                ->where('start_date', '<=', now())
+                ->whereNull('date_of_cancellation'); // Ensure contract is not canceled
         })->get();
 
         return view('club-show', compact('club', 'players'));

@@ -89,6 +89,9 @@ class ContractsRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('signed_date')
                     ->label('Signed Date')
                     ->translateLabel(),
+                Tables\Columns\TextColumn::make('date_of_cancellation')
+                    ->label('Date of Cancellation')
+                    ->translateLabel(),
                 Tables\Columns\TextColumn::make('amount')
                     ->label('Amount')
                     ->translateLabel()
@@ -102,6 +105,27 @@ class ContractsRelationManager extends RelationManager
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
+
+                Tables\Actions\Action::make('termination_of_the_contract')
+                    ->label('Termination of the contract')
+                    ->translateLabel()
+                    ->requiresConfirmation()
+                    ->action(function (Contract $contract) {
+                        $contract->update(['date_of_cancellation' => now()]);
+                    })
+                    ->color(Color::Rose)
+                    ->hidden(fn (Contract $contract) => $contract->date_of_cancellation !== null),
+                Tables\Actions\Action::make('reactivate_contract')
+                    ->label('Reactivate Contract')
+                    ->translateLabel()
+                    ->requiresConfirmation()
+                    ->action(function (Contract $contract) {
+                        $contract->update(['date_of_cancellation' => null]);
+                    })
+                    ->color(Color::Green)
+                    ->hidden(fn (Contract $contract) => $contract->date_of_cancellation === null),
+
+
 
                 Tables\Actions\Action::make('show_contract')
                     ->label('Show Contract')

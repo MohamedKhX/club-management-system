@@ -61,7 +61,14 @@ class Player extends Model implements HasMedia
     public function followingClub(): Attribute
     {
         return Attribute::get(function () {
-            return $this->contracts->last()->club->name ?? 'لا يتبع أي نادي';
+            $activeContract = $this->contracts()
+                ->whereDate('start_date', '<=', now())
+                ->whereDate('end_date', '>=', now())
+                ->whereNull('date_of_cancellation')
+                ->latest('end_date') // Get the most recent contract that is still valid
+                ->first();
+
+            return $activeContract ? $activeContract->club->name : 'لا يتبع أي نادي';
         });
     }
 }

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->date('start_date');
             $table->date('end_date');
             $table->date('signed_date')->nullable();
+            $table->date('date_of_cancellation')->nullable();
             $table->decimal('amount', 10, 2)->nullable();
             $table->softDeletes();
             $table->foreignId('player_id')->constrained()->cascadeOnDelete();
