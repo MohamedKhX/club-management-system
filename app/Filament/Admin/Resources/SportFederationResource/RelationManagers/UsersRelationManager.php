@@ -43,7 +43,7 @@ class UsersRelationManager extends RelationManager
                     ->columnSpan(2),
 
                 Forms\Components\Hidden::make('type')
-                    ->default(UserTypeEnum::SportFederation->value),
+                    ->default(UserTypeEnum::SportFederation),
 
                 Forms\Components\Hidden::make('sport_federation_id')
                     ->default($this->getOwnerRecord()->id),
