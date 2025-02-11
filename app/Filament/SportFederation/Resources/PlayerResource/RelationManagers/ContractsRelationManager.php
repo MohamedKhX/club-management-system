@@ -61,7 +61,8 @@ class ContractsRelationManager extends RelationManager
                         SpatieMediaLibraryFileUpload::make('Contract')
                             ->collection('contract')
                             ->label('Contract')
-                            ->translateLabel(),
+                            ->translateLabel()
+                            ->required(),
 
                         Forms\Components\Hidden::make('sport_federation_id')
                             ->default(Filament::auth()->user()->sport_federation_id),
@@ -74,6 +75,32 @@ class ContractsRelationManager extends RelationManager
 
     public function table(Table $table): Table
     {
+        $actions = [
+            Tables\Actions\Action::make('termination_of_the_contract')
+                ->label('Termination of the contract')
+                ->translateLabel()
+                ->requiresConfirmation()
+                ->action(function (Contract $contract) {
+                    $contract->update(['date_of_cancellation' => now()]);
+                })
+                ->color(Color::Rose)
+                ->hidden(fn (Contract $contract) => $contract->date_of_cancellation !== null),
+
+            Tables\Actions\Action::make('reactivate_contract')
+                ->label('Reactivate Contract')
+                ->translateLabel()
+                ->requiresConfirmation()
+                ->action(function (Contract $contract) {
+                    $contract->update(['date_of_cancellation' => null]);
+                })
+                ->color(Color::Green)
+                ->hidden(fn (Contract $contract) => $contract->date_of_cancellation === null),
+        ];
+
+        if(auth()->user()->club_id) {
+            $actions = [];
+        }
+
         return $table
             ->recordTitleAttribute('state')
             ->columns([
@@ -106,26 +133,7 @@ class ContractsRelationManager extends RelationManager
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
 
-                Tables\Actions\Action::make('termination_of_the_contract')
-                    ->label('Termination of the contract')
-                    ->translateLabel()
-                    ->requiresConfirmation()
-                    ->action(function (Contract $contract) {
-                        $contract->update(['date_of_cancellation' => now()]);
-                    })
-                    ->color(Color::Rose)
-                    ->hidden(fn (Contract $contract) => $contract->date_of_cancellation !== null),
-                Tables\Actions\Action::make('reactivate_contract')
-                    ->label('Reactivate Contract')
-                    ->translateLabel()
-                    ->requiresConfirmation()
-                    ->action(function (Contract $contract) {
-                        $contract->update(['date_of_cancellation' => null]);
-                    })
-                    ->color(Color::Green)
-                    ->hidden(fn (Contract $contract) => $contract->date_of_cancellation === null),
-
-
+                ... $actions,
 
                 Tables\Actions\Action::make('show_contract')
                     ->label('Show Contract')

@@ -47,18 +47,15 @@
             <!-- Navigation Menu Start -->
             <nav class="navbar navbar-expand-lg bg-dark">
                 <div class="container px-lg-0">
-                    <a class="navbar-brand" href="index.html"><img src="images/logo-gradient.png" alt="Logo"></a>
                     <button class="navbar-toggler offcanvas-nav-btn" type="button">
                         <span class="feather-icon icon-menu"></span>
                     </button>
                     <div class="nav-cta order-lg-3">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <a href="login.html"><i class="feather-icon icon-user"></i></a>
-                        </div>
+
                     </div>
                     <div class="offcanvas bg-dark offcanvas-start offcanvas-nav">
                         <div class="offcanvas-header">
-                            <a href="index.html" class="text-inverse"><img src="images/logo-gradient.png" alt="Logo"></a>
+
                             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                         </div>
 

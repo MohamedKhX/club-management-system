@@ -123,6 +123,8 @@ class RequestResource extends Resource
                     ->mutateRecordDataUsing(function ($record) {
                         return $record->toArray();
                 }),
+                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\EditAction::make()
             ]);
     }
 
@@ -169,10 +171,5 @@ class RequestResource extends Resource
             'create' => Pages\CreateRequest::route('/create'),
             'edit' => Pages\EditRequest::route('/{record}/edit'),
         ];
-    }
-
-    public static function canEdit(Model $record): bool
-    {
-        return false;
     }
 }
