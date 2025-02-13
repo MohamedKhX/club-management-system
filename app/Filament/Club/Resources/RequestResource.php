@@ -15,6 +15,7 @@ use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Support\Colors\Color;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -62,7 +63,7 @@ class RequestResource extends Resource
                                     ->pluck('full_name', 'id');
                             })
                             ->searchable()
-                            ->required(fn($get) => $get('type') == RequestTypeEnum::PlayerCreation->value)
+                            ->required(fn($get) => $get('type') != RequestTypeEnum::PlayerCreation->value)
                             ->disabled(fn($get) => $get('type') == RequestTypeEnum::PlayerCreation->value)
                             ->hidden(fn($get) => $get('type') == RequestTypeEnum::PlayerCreation->value)
                             ->reactive(),
@@ -71,7 +72,7 @@ class RequestResource extends Resource
                             ->label('Description')
                             ->translateLabel()
                             ->rows(4)
-                            ->nullable()
+                            ->required(fn($get) => $get('type') != RequestTypeEnum::PlayerCreation->value)
                             ->disabled(fn($get) => $get('type') == RequestTypeEnum::PlayerCreation->value)
                             ->hidden(fn($get) => $get('type') == RequestTypeEnum::PlayerCreation->value),
 
@@ -125,6 +126,7 @@ class RequestResource extends Resource
                 }),
                 Tables\Actions\DeleteAction::make(),
                 Tables\Actions\EditAction::make()
+                    ->color(Color::Blue)
             ]);
     }
 
