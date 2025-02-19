@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class ContractsRelationManager extends RelationManager
 {
     protected static string $relationship = 'contracts';
+    protected static bool $canCreateAnother = false;
 
     public function form(Form $form): Form
     {
@@ -69,9 +70,11 @@ class ContractsRelationManager extends RelationManager
 
                         Forms\Components\Hidden::make('club_id')
                             ->default($this->getOwnerRecord()->id),
-                    ])->columns(1)
+                    ])
+                    ->columns(1),
             ]);
     }
+
 
     public function table(Table $table): Table
     {
@@ -101,6 +104,7 @@ class ContractsRelationManager extends RelationManager
             $actions = [];
         }
 
+        $player = Player::find($this->getOwnerRecord()->id);
         return $table
             ->recordTitleAttribute('state')
             ->columns([
@@ -127,7 +131,9 @@ class ContractsRelationManager extends RelationManager
                     ->suffix(' د.ل'),
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                Tables\Actions\CreateAction::make()
+                    ->createAnother(false)
+                    ->disabled(fn() => $player->followingClub !== 'لا يتبع أي نادي')
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

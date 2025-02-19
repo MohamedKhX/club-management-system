@@ -27,6 +27,8 @@ use Illuminate\Database\Eloquent\Model;
 class PlayerResource extends Resource
 {
 
+    use HasTranslatedLabels;
+
     protected static ?string $model = Player::class;
 
     protected static ?string $navigationIcon = 'iconpark-sport';
@@ -51,13 +53,13 @@ class PlayerResource extends Resource
                         });
                     }),
 
-                TextColumn::make('state')
+               /* TextColumn::make('state')
                     ->label('State')
                     ->translateLabel()
                     ->sortable()
                     ->badge()
                     ->color(fn (Model $record) => $record->state === PlayerStateEnum::Active ? Color::Green : Color::Red)
-                    ->formatStateUsing(fn($state) => $state->translate()),
+                    ->formatStateUsing(fn($state) => $state->translate()),*/
 
                 TextColumn::make('date_of_birth')
                     ->label('Date of Birth')
@@ -81,26 +83,13 @@ class PlayerResource extends Resource
             ]);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    use HasTranslatedLabels;
+    public static function form(Form $form): Form
+    {
+        return $form
+            ->schema(
+                self::getFormSchema()
+            )->columns(1);
+    }
 
     public static function getFormSchema($outside = false): array
     {
@@ -109,12 +98,14 @@ class PlayerResource extends Resource
                 ->collection('avatar')
                 ->label('Player Avatar')
                 ->translateLabel()
+                ->required()
                 ->image(),
 
             SpatieMediaLibraryFileUpload::make('birth_certificate')
                 ->collection('birth_certificate')
                 ->label('Birth Certificate')
                 ->translateLabel()
+                ->required()
                 ->image(),
 
             SpatieMediaLibraryFileUpload::make('passport')
@@ -132,6 +123,7 @@ class PlayerResource extends Resource
                 ->image()
                 ->disk('public')
                 ->directory('attachments')
+                ->required()
                 ->preserveFilenames(),
 
             Forms\Components\FileUpload::make('birth_certificate')
@@ -140,6 +132,7 @@ class PlayerResource extends Resource
                 ->image()
                 ->disk('public')
                 ->directory('attachments')
+                ->required()
                 ->preserveFilenames(),
 
             Forms\Components\FileUpload::make('passport')
@@ -247,7 +240,7 @@ class PlayerResource extends Resource
                         ->required(),
 
                     Forms\Components\Placeholder::make('')
-                        ->content('يقعر اللاعب بعدم ارتباطه أو التزامه مع أي نادي آخر لا إداريا ولا ماليا'),
+                        ->content('يقر اللاعب بعدم ارتباطه أو التزامه مع أي نادي آخر لا إداريا ولا ماليا'),
                     Forms\Components\Placeholder::make('')
                         ->content('يتعهدا النادي واللاعب بإحترام العلاقة التعاقدية والالتزام بتنفيدها'),
                     Forms\Components\Placeholder::make('')
@@ -261,14 +254,6 @@ class PlayerResource extends Resource
                 ])
                 ->columns(1)
         ];
-    }
-
-    public static function form(Form $form): Form
-    {
-        return $form
-            ->schema(
-                self::getFormSchema()
-            )->columns(1);
     }
 
     public static function canDelete(Model $record): bool
@@ -286,6 +271,36 @@ class PlayerResource extends Resource
         return false;
     }
 
+    public static function getEloquentQuery(): Builder
+    {
+        $clubId = auth()->user()->club_id;
+        $today = now()->toDateString(); // Get the current date
+
+        return parent::getEloquentQuery()
+            ->whereHas('contracts', function ($query) use ($clubId, $today) {
+                $query->where('club_id', $clubId)
+                    ->whereDate('start_date', '<=', $today)
+                    ->whereDate('end_date', '>=', $today);
+            });
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public static function getRelations(): array
     {
         return [
@@ -301,18 +316,6 @@ class PlayerResource extends Resource
             'edit'   => Pages\EditPlayer::route('/{record}/edit'),
             'view'   => Pages\ViewPlayer::route('/{record}'),
         ];
-    }
-    public static function getEloquentQuery(): Builder
-    {
-        $clubId = auth()->user()->club_id;
-        $today = now()->toDateString(); // Get the current date
-
-        return parent::getEloquentQuery()
-            ->whereHas('contracts', function ($query) use ($clubId, $today) {
-                $query->where('club_id', $clubId)
-                    ->whereDate('start_date', '<=', $today)
-                    ->whereDate('end_date', '>=', $today);
-            });
     }
 
 }

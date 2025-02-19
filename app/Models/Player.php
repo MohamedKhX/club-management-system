@@ -58,6 +58,13 @@ class Player extends Model implements HasMedia
         });
     }
 
+    public function isActive(): Attribute
+    {
+        return Attribute::get(function () {
+            return false;
+        });
+    }
+
     public function followingClub(): Attribute
     {
         return Attribute::get(function () {

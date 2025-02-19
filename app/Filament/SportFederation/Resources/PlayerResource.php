@@ -23,6 +23,15 @@ use Illuminate\Database\Eloquent\Builder;
 
 class PlayerResource extends Resource
 {
+    use HasTranslatedLabels;
+
+    protected static ?string $model = Player::class;
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->where('sport_federation_id', Filament::auth()->user()->sport_federation_id);
+    }
+
     protected static ?string $navigationIcon = 'iconpark-sport';
 
     public static function table(Table $table): Table
@@ -148,19 +157,22 @@ class PlayerResource extends Resource
                             ->collection('avatar')
                             ->label('Player Avatar')
                             ->translateLabel()
-                            ->image(),
+                            ->image()
+                            ->required(),
 
                         SpatieMediaLibraryFileUpload::make('birth_certificate')
                             ->collection('birth_certificate')
                             ->label('Birth Certificate')
                             ->translateLabel()
-                            ->image(),
+                            ->image()
+                            ->required(),
 
                         SpatieMediaLibraryFileUpload::make('passport')
                             ->collection('passport')
                             ->label('Passport')
                             ->translateLabel()
-                            ->image(),
+                            ->image()
+                            ->required(),
 
                         Forms\Components\Hidden::make('sport_federation_id')
                             ->default(Filament::auth()->user()->sport_federation_id),
@@ -196,9 +208,7 @@ class PlayerResource extends Resource
 
 
 
-    use HasTranslatedLabels;
 
-    protected static ?string $model = Player::class;
 
     public static function getPages(): array
     {
@@ -216,8 +226,5 @@ class PlayerResource extends Resource
         ];
     }
 
-    public static function getEloquentQuery(): Builder
-    {
-        return parent::getEloquentQuery()->where('sport_federation_id', Filament::auth()->user()->sport_federation_id);
-    }
+
 }

@@ -31,6 +31,9 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class RequestResource extends Resource
 {
+    use HasTranslatedLabels;
+
+    protected static ?string $model = Request::class;
     protected static ?string $navigationIcon = 'tabler-git-pull-request';
 
 
@@ -208,36 +211,10 @@ class RequestResource extends Resource
             ]);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    use HasTranslatedLabels;
-    protected static ?string $model = Request::class;
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->where('sport_federation_id', Filament::auth()->user()->sport_federation_id);
+    }
 
     public static function canCreate(): bool
     {
@@ -251,6 +228,28 @@ class RequestResource extends Resource
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public static function getPages(): array
     {
         return [
@@ -259,8 +258,5 @@ class RequestResource extends Resource
             'edit' => Pages\EditRequest::route('/{record}/edit'),
         ];
     }
-    public static function getEloquentQuery(): Builder
-    {
-        return parent::getEloquentQuery()->where('sport_federation_id', Filament::auth()->user()->sport_federation_id);
-    }
+
 }

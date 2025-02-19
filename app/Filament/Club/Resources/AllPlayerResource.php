@@ -24,6 +24,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class AllPlayerResource extends Resource
 {
+
+    use HasTranslatedLabels;
+
+    protected static ?string $model = Player::class;
     protected static ?string $navigationIcon = 'iconpark-sport';
 
     public static function form(Form $form): Form
@@ -177,6 +181,20 @@ class AllPlayerResource extends Resource
     }
 
 
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->where('sport_federation_id', Filament::auth()->user()->club->sport_federation_id);
+    }
+
+    public static function canCreate(): bool
+    {
+        return false;
+    }
+
+    public static function canEdit(Model $record): bool
+    {
+        return false;
+    }
 
 
 
@@ -194,9 +212,10 @@ class AllPlayerResource extends Resource
 
 
 
-    use HasTranslatedLabels;
 
-    protected static ?string $model = Player::class;
+
+
+
 
 
     public static function getRelations(): array
@@ -216,20 +235,6 @@ class AllPlayerResource extends Resource
         ];
     }
 
-    public static function getEloquentQuery(): Builder
-    {
-        return parent::getEloquentQuery()->where('sport_federation_id', Filament::auth()->user()->club->sport_federation_id);
-    }
-
-    public static function canCreate(): bool
-    {
-        return false;
-    }
-
-    public static function canEdit(Model $record): bool
-    {
-        return false;
-    }
 
     public static function canView(Model $record): bool
     {

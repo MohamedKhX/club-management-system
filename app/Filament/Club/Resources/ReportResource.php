@@ -19,6 +19,10 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ReportResource extends Resource
 {
+
+    use HasTranslatedLabels;
+
+    protected static ?string $model = Report::class;
     protected static ?string $navigationIcon = 'tabler-message-report';
 
     public static function form(Form $form): Form
@@ -75,6 +79,10 @@ class ReportResource extends Resource
     }
 
 
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->where('club_id', Filament::auth()->user()->club_id);
+    }
 
 
 
@@ -97,9 +105,9 @@ class ReportResource extends Resource
 
 
 
-    use HasTranslatedLabels;
 
-    protected static ?string $model = Report::class;
+
+
 
     public static function getPages(): array
     {
@@ -108,8 +116,4 @@ class ReportResource extends Resource
         ];
     }
 
-    public static function getEloquentQuery(): Builder
-    {
-        return parent::getEloquentQuery()->where('club_id', Filament::auth()->user()->club_id);
-    }
 }

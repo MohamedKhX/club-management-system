@@ -22,30 +22,6 @@ class ReportResource extends Resource
 
     protected static ?int $navigationSort = 2;
 
-    public static function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-                Forms\Components\Fieldset::make()
-                    ->schema([
-                        Forms\Components\TextInput::make('title')
-                            ->label('Title')
-                            ->translateLabel()
-                            ->required(),
-
-                        Forms\Components\Textarea::make('content')
-                            ->label('Content')
-                            ->translateLabel()
-                            ->required(),
-
-                        Hidden::make('sport_federation_id')
-                            ->default(auth()->user()->sport_federation_id),
-
-                    ])->columns(1)
-            ]);
-    }
-
-
     public static function table(Table $table): Table
     {
         return $table

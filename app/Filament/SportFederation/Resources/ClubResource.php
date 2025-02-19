@@ -26,6 +26,10 @@ use Illuminate\Database\Eloquent\Builder;
 
 class ClubResource extends Resource
 {
+    use HasTranslatedLabels;
+
+
+    protected static ?string $model = Club::class;
     protected static ?string $navigationIcon = 'tabler-clubs';
 
     public static function form(Form $form): Form
@@ -151,6 +155,10 @@ class ClubResource extends Resource
             ]);
     }
 
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->where('sport_federation_id', Filament::auth()->user()->sport_federation_id);
+    }
 
 
 
@@ -175,20 +183,13 @@ class ClubResource extends Resource
 
 
 
-    use HasTranslatedLabels;
 
-    protected static ?string $model = Club::class;
 
     public static function getRelations(): array
     {
         return [
             RelationManagers\UsersRelationManager::make()
         ];
-    }
-
-    public static function getEloquentQuery(): Builder
-    {
-        return parent::getEloquentQuery()->where('sport_federation_id', Filament::auth()->user()->sport_federation_id);
     }
 
     public static function getPages(): array

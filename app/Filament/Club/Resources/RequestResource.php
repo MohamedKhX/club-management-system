@@ -23,6 +23,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class RequestResource extends Resource
 {
+
+
+    use HasTranslatedLabels;
+
+    protected static ?string $model = Request::class;
+
     protected static ?string $navigationIcon = 'tabler-git-pull-request';
 
     public static function form(Form $form): Form
@@ -129,42 +135,37 @@ class RequestResource extends Resource
                     ->color(Color::Blue)
             ]);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    use HasTranslatedLabels;
-
-    protected static ?string $model = Request::class;
-
-
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()->where('club_id', Filament::auth()->user()->club_id);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public static function getPages(): array
     {
