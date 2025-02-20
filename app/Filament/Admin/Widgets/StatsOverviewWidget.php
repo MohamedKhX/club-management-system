@@ -73,7 +73,7 @@ class StatsOverviewWidget extends BaseWidget
                 ->chart([4, 6, 11, 2, 10, 3, 12])
                 ->color('success'),
 
-            Stat::make(__('Injured Players'), $injuredPlayers)
+            /*Stat::make(__('Injured Players'), $injuredPlayers)
                 ->description(__('Suspended: :count', ['count' => $suspendedPlayers]))
                 ->chart([2, 3, 5, 1, 4, 2, 6])
                 ->color('danger'),
@@ -81,7 +81,7 @@ class StatsOverviewWidget extends BaseWidget
             Stat::make(__('Inactive Players'), $inactivePlayers)
                 ->description(__('Not currently active'))
                 ->chart([3, 4, 6, 2, 5, 3, 7])
-                ->color('gray'),
+                ->color('gray'),*/
 
             // Contracts Section
             Stat::make(__('Total Contracts'), $totalContracts)

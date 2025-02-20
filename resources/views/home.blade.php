@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-lg-10 mx-auto">
                     <div class="banner-txt text-center jarallax">
-                        <p class="lead text-gr">Transfer Arena</p>
+                        <h2 style="color: #FF4B44 !important; ">Transfer Arena</h2>
                         <p style="line-height: 2.0; margin-top: 1rem; font-size: 26px">
                             مرحبًا بكم في منصة TransferArena، وجهتكم الأولى لمتابعة أخبار انتقالات اللاعبين المحلية والتفاعل مع الأندية والاتحادات الرياضية. تتيح لكم المنصة التعرف على تفاصيل الأندية، متابعة اللاعبين، والاطلاع على أحدث الانتقالات الرياضية. نحن هنا لنقربكم من عالم الرياضة بأسلوب جديد ومميز.
                         </p>
@@ -51,8 +51,8 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6 order-2 order-lg-1">
-                    <div class="about-txt">
-                        <p class="lead text-success">تعرف علينا</p>
+                    <div class="about-txta">
+                        <p class="lead" style="color: #0097B2 !important;">تعرف علينا</p>
                         <h2 class="sec-title line-left green">الرياضة تجمعنا وتلهمنا نحو مستقبل أفضل</h2>
                         <p>في منصة TransferArena، نقدم للمواطنين تجربة رياضية فريدة تتيح لهم متابعة أخبار الأندية والاتحادات الرياضية بكل شفافية وسهولة. رؤيتنا هي تعزيز التفاعل بين عشاق الرياضة والمجتمع الرياضي المحلي.</p>
                         <ul class="my-5">
@@ -73,7 +73,7 @@
     <!-- About Section End -->
 
     <!-- SportFederation Section Start -->
-    <section class="match-schedule sec-padding bg-success">
+    <section class="match-schedule sec-padding" style="background-color: #FF4B44">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 mx-auto pb-4 mb-5">

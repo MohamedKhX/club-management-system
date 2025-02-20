@@ -74,12 +74,12 @@ class ClubStatsOverview extends BaseWidget
                     $playersByState[PlayerStateEnum::Injured->value] ?? 0,
                     $playersByState[PlayerStateEnum::Suspended->value] ?? 0,
                 ]),
-
+/*
             Stat::make(__('Injured Players'), $playersByState[PlayerStateEnum::Injured->value] ?? 0)
                 ->description(__('Players unavailable'))
                 ->descriptionIcon('heroicon-m-heart')
                 ->color(Color::Red)
-                ->chart([2, 3, 5, 4, 6, $playersByState[PlayerStateEnum::Injured->value] ?? 0]),
+                ->chart([2, 3, 5, 4, 6, $playersByState[PlayerStateEnum::Injured->value] ?? 0]),*/
 
             // Contract Stats
             Stat::make(__('Active Contracts'), $activeContracts)
@@ -116,4 +116,4 @@ class ClubStatsOverview extends BaseWidget
                 ->chart([2, 4, $totalReports, 3, 5, 4]),
         ];
     }
-} 
+}

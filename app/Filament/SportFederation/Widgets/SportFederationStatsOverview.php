@@ -76,10 +76,9 @@ class SportFederationStatsOverview extends BaseWidget
                 ->chart([7, 4, 6, 8, 5, $totalClubs]),
 
             Stat::make(__('Total Players'), $totalPlayers)
-                ->description(__('Active Players: :count', ['count' => $playersByState[PlayerStateEnum::Active->value] ?? 0]))
+                ->chart([7, 4, 6, 8, 5, $totalClubs])
                 ->descriptionIcon('heroicon-m-user-group')
-                ->color(Color::Emerald)
-                ->chart(array_values($monthlyPlayers)),
+                ->color(Color::Emerald),
 
             Stat::make(__('Players Distribution'), '')
                 ->description(__('By State'))
