@@ -50,8 +50,12 @@ class ReportResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->disabled(fn($record) => $record->club)
+                    ->hidden(fn($record) => $record->club),
+                Tables\Actions\DeleteAction::make()
+                    ->disabled(fn($record) => $record->club)
+                    ->hidden(fn($record) => $record->club),
             ]);
     }
 

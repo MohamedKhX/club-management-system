@@ -105,7 +105,6 @@ class PlayerResource extends Resource
                             ->maxLength(100)
                             ->required(),
 
-
                         TextInput::make('grandfather_name')
                             ->label('Grandfather Name')
                             ->translateLabel()

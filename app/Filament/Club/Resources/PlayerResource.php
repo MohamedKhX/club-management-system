@@ -105,7 +105,7 @@ class PlayerResource extends Resource
                 ->collection('birth_certificate')
                 ->label('Birth Certificate')
                 ->translateLabel()
-                ->required()
+                ->required(fn($get) => $get('citizenship') === 'Libyan')
                 ->image(),
 
             SpatieMediaLibraryFileUpload::make('passport')
@@ -132,7 +132,7 @@ class PlayerResource extends Resource
                 ->image()
                 ->disk('public')
                 ->directory('attachments')
-                ->required()
+                ->required(fn($get) => $get('citizenship') === 'Libyan')
                 ->preserveFilenames(),
 
             Forms\Components\FileUpload::make('passport')
